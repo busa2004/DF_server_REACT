@@ -66,9 +66,9 @@ class TabForm extends Component {
             <div>
             <p></p>
             <Tabs  type="card" defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="대기" key="1"><TableForm reports={this.state.waitArray} columns={this.props.columns}/></TabPane>
+                <TabPane tab="대기" key="1"><TableForm modifyConfirm={this.props.modifyConfirm} reports={this.state.waitArray} columns={this.props.columns} modify={true} /></TabPane>
                 <TabPane tab="진행" key="2"><TableForm reports={this.state.progressArray}/></TabPane>
-                <TabPane tab="보류" key="3"><TableForm reports={this.state.holdArray} /></TabPane> 
+                <TabPane tab="보류" key="3"><TableForm reports={this.state.holdArray} hold={true} /></TabPane> 
                 
             </Tabs>
             </div>

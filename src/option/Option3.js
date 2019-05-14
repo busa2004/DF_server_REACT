@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tap from './Tap';
-import { getReport,deleteReport } from '../util/APIUtils';
+import { getReport,deleteReport,modifyReport } from '../util/APIUtils';
 import  DatePickers from '../ListAndSearchUi/DatePickers';
 import  SerachForm from '../ListAndSearchUi/SearchForm';
 import  TabForm from '../ListAndSearchUi/TabForm';
@@ -22,7 +22,8 @@ class Option3 extends Component {
             from:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),
             to:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+(d.getDate()+1),
             search:'',
-            columns: {
+            columns: 
+                {
                 title: '삭제',
                 dataIndex: 'id',
                 key: 'id',
@@ -37,7 +38,7 @@ class Option3 extends Component {
   
   
                 }
-              }
+                }
         }
         this.loadReport = this.loadReport.bind(this);
              
@@ -49,6 +50,35 @@ class Option3 extends Component {
         });
       
         deleteReport(id)
+        .then(response => {
+            this.setState({
+              ok: response,
+                isLoading: false
+            
+              });
+              this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to});
+        }).catch(error => {
+            if(error.status === 404) {
+                this.setState({
+                    notFound: true,
+                    isLoading: false
+                });
+            } else {
+                this.setState({
+                    serverError: true,
+                    isLoading: false
+                });        
+            }
+        });        
+      }
+
+
+      loadModify(content,id) {
+        this.setState({
+            isLoading: true
+        });
+      
+        modifyReport(content,id)
         .then(response => {
             this.setState({
               ok: response,
@@ -103,7 +133,10 @@ class Option3 extends Component {
      this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to});
     }
     
-   
+    modifyConfirm=(content,id)=>{
+       this.loadModify(content,id)
+
+    }
     
     
     // _renderUserTask = () => {
@@ -173,7 +206,7 @@ class Option3 extends Component {
                          <Col span={12}><SerachForm search={this.search} value={this.state.search}/></Col>
                      </Row>
                      <Row>
-                         <Col span={24}><TabForm reports={this.state.reports} columns={this.state.columns}/></Col>
+                         <Col span={24}><TabForm modifyConfirm={this.modifyConfirm} reports={this.state.reports} columns={this.state.columns}/></Col>
                      </Row>
                 </Card>
                  </div>

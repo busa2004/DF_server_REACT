@@ -115,7 +115,9 @@ class TextEdit extends Component {
 	setRef = jodit => this.jodit = jodit;
 	
 	config = {
-		readonly: false // all options from https://xdsoft.net/jodit/doc/
+        readonly: false, // all options from https://xdsoft.net/jodit/doc/
+        width: '100%',
+        height: 600
     }
     render(){
         if(this.state.isLoading) {

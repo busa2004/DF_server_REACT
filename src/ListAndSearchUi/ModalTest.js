@@ -1,6 +1,9 @@
 
 import React, { Component } from 'react';
 import { Modal, Button } from 'antd';
+import 'jodit';
+import 'jodit/build/jodit.min.css';
+import JoditEditor from "jodit-react";
 import { Row, Col, Slider,Input,Card  } from 'antd';
 const { TextArea } = Input;
 class TabForm extends Component {
@@ -12,7 +15,9 @@ class TabForm extends Component {
             title:this.props.data.title,
             visible: false,
             content:this.props.data.content,
-            description:this.props.data.description
+            description:this.props.data.description,
+            modify:this.props.modify,
+            id:this.props.data.id
         }
     }
 
@@ -36,6 +41,45 @@ class TabForm extends Component {
             visible: false,
         });
     }
+    updateContent = (value) => {
+        this.setState({content:value})
+    }
+    /**
+     * @property Jodit jodit instance of native Jodit
+     */
+	jodit;
+	setRef = jodit => this.jodit = jodit;
+	
+	config = {
+		readonly: false // all options from https://xdsoft.net/jodit/doc/
+    }
+    modify=()=>{
+        if(this.props.modify == true){
+            return  <div><JoditEditor
+            editorRef={this.setRef}
+            value={this.state.content}
+            config={this.config}
+            onChange={this.updateContent}
+            />
+            <p></p>
+            <Row type="flex" justify="end">
+            <Button onClick={a=>this.props.modifyConfirm(this.state.content,this.state.id)}>수정</Button>
+            </Row> 
+            <p></p>
+            </div>
+        } else{
+           return <div dangerouslySetInnerHTML={{ __html: this.state.content }}></div>
+        }
+    }
+    
+    holdDescription = () => {
+        if(this.props.hold == true){
+            return  <Card title="반려사유">
+            {this.state.description}
+        </Card>
+        }
+    }
+
     render() {
         return (
             <div>
@@ -54,15 +98,14 @@ class TabForm extends Component {
                         title={this.state.title}
                     >
                      <Row type="flex" justify="center">
-                     <div dangerouslySetInnerHTML={{ __html: this.state.content }}></div>
+                    
+                    
+                    {this.modify()}
                     </Row>
+                   
                     </Card>
                     <p></p>
-                    <Card
-                        title="반려사유"
-                    >
-                        {this.state.description}
-                    </Card>
+                    {this.holdDescription()}
                 </Modal>
             </div>);
     }

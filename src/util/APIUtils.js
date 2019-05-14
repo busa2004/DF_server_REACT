@@ -215,6 +215,18 @@ export function getAllReport(body) {
     });
 }
 
+
+export function modifyReport(content,id) {
+    let modify = {content:content, id:id}
+    return request({
+        url: API_BASE_URL + '/report/modify',
+        method: 'POST',
+        body: JSON.stringify(modify)    
+        
+    });
+}
+
+
 export function getAllTask(body) {
 
     return request({
