@@ -207,6 +207,14 @@ export function getUserCalendar() {
     });
 }
 
+export function getUserTaskDate() {
+
+    return request({
+        url: API_BASE_URL+'/usertask/date',
+        method: 'GET'
+    });
+}
+
 export function getAllReport(body) {
     return request({
         url: API_BASE_URL + '/report/al',
