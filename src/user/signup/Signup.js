@@ -61,13 +61,13 @@ class Signup extends Component {
         signup(signupRequest)
         .then(response => {
             notification.success({
-                message: 'Polling App',
+                message: '더존팩토리',
                 description: "Thank you! You're successfully registered. Please Login to continue!",
             });          
             this.props.history.push("/login");
         }).catch(error => {
             notification.error({
-                message: 'Polling App',
+                message: '더존팩토리',
                 description: error.message || 'Sorry! Something went wrong. Please try again!'
             });
         });
@@ -83,8 +83,8 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className="signup-container">
-                <h1 className="page-title">Sign Up</h1>
+            <div className="signup-container" style={{width:"50%"}}>
+                <h1 style={{textAlign:"center"}} className="page-title">Sign Up</h1>
                 <div className="signup-content">
                     <Form onSubmit={this.handleSubmit} className="signup-form">
                         <FormItem 
@@ -146,7 +146,7 @@ class Signup extends Component {
                                 size="large" 
                                 className="signup-form-button"
                                 disabled={this.isFormInvalid()}>Sign up</Button>
-                            Already registed? <Link to="/login">Login now!</Link>
+                            Already registed? <Link to="/login"  style={{color:"#00B1B6"}}>Login now!</Link>
                         </FormItem>
                     </Form>
                 </div>

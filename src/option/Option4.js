@@ -100,7 +100,7 @@ class Option4 extends Component {
        
         return (
             <div>
-              <Card title='업무보고현황'>
+              <Card title='업무보고현황' headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}>
                 <Report title={'업무보고현황'} buttonTitle={'결제'} status={'WAIT'} route={'report'} columns={this.state.columns}/>
                 </Card>
             </div>

@@ -31,6 +31,7 @@ class TabForm extends Component {
              "status": this.state.reports[i].status,
              "description" : this.state.reports[i].description,
              "id" :this.state.reports[i].id,
+             "fileName":this.state.reports[i].fileName,
             tags: ['cool', 'teacher']
             };
     }

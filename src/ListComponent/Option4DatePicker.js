@@ -16,7 +16,7 @@ class Option4DatePick extends Component {
   render () {
         
        return (
-        <div  style={{width: '40%' }}>
+        <div  style={{width: '65%' }}>
         <RangePicker
           onChange={this.onChange}  
           defaultValue={[moment( this.props.from , dateFormat), moment(this.props.to, dateFormat)]}

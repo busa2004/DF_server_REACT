@@ -28,8 +28,6 @@ class DatePickers extends Component {
 
         return (
             <div>
-                
-
                 <RangePicker onChange={this.onChange}  
                 defaultValue={[moment(this.props.from, dateFormat),
                  moment(this.props.to, dateFormat)]}

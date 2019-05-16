@@ -10,7 +10,8 @@ import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
 import moment from 'moment';
 import {Card} from 'antd';
-import { Popconfirm, message,Button } from 'antd';
+import { Popconfirm, Input,Button } from 'antd';
+const InputGroup = Input.Group;
 class Option3 extends Component {
 
     constructor(props) {
@@ -22,8 +23,7 @@ class Option3 extends Component {
             from:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),
             to:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+(d.getDate()+1),
             search:'',
-            columns: 
-                {
+            columns: {
                 title: '삭제',
                 dataIndex: 'id',
                 key: 'id',
@@ -33,12 +33,12 @@ class Option3 extends Component {
                     this.loadDelete(text)
                   }
                   return <Popconfirm placement="top" title={'정말로 삭제하시겠습니까?'} onConfirm={confirm} okText="Yes" cancelText="No">
-                    <Button>Top</Button>
+                    <Button type="danger" ghost >삭제</Button>
                   </Popconfirm>
   
   
                 }
-                }
+              }
         }
         this.loadReport = this.loadReport.bind(this);
              
@@ -71,8 +71,6 @@ class Option3 extends Component {
             }
         });        
       }
-
-
       loadModify(content,id) {
         this.setState({
             isLoading: true
@@ -134,9 +132,9 @@ class Option3 extends Component {
     }
     
     modifyConfirm=(content,id)=>{
-       this.loadModify(content,id)
+      this.loadModify(content,id)
 
-    }
+   }
     
     
     // _renderUserTask = () => {
@@ -194,17 +192,18 @@ class Option3 extends Component {
      
         
         
-        
-         return (
-            
+         return (       
             <div>
                
                 <div>
-                <Card title='보고서관리'>
-                     <Row>
-                         <Col span={12}><DatePickers dateSearch={this.dateSearch} to={this.state.to} from={this.state.from} /></Col>
-                         <Col span={12}><SerachForm search={this.search} value={this.state.search}/></Col>
-                     </Row>
+                <Card headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}
+                bodyStyle={{backgroundColor:"16448250"}} title='보고서관리'>
+                <InputGroup compact>
+                <div style={{display:"flex", flexDirection: "row"}}>
+                <DatePickers dateSearch={this.dateSearch} to={this.state.to} from={this.state.from} />
+                <SerachForm search={this.search} value={this.state.search}/></div>
+
+                </InputGroup>
                      <Row>
                          <Col span={24}><TabForm modifyConfirm={this.modifyConfirm} reports={this.state.reports} columns={this.state.columns}/></Col>
                      </Row>

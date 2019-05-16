@@ -70,7 +70,7 @@ class App extends Component {
     this.loadCurrentUser();
   }
 
-  handleLogout(redirectTo = "/", notificationType = "success", description = "You're successfully logged out.") {
+  handleLogout(redirectTo = "/", notificationType = "success", description = "수고하셨습니다.") {
     localStorage.removeItem(ACCESS_TOKEN);
 
     this.setState({
@@ -81,15 +81,15 @@ class App extends Component {
     this.props.history.push(redirectTo);
 
     notification[notificationType]({
-      message: 'Polling App',
+      message: '더존팩토리',
       description: description,
     });
   }
 
   handleLogin() {
     notification.success({
-      message: 'Polling App',
-      description: "You're successfully logged in.",
+      message: '더존팩토리',
+      description: "반갑습니다.",
     });
     this.loadCurrentUser();
     this.props.history.push("/Option1");
@@ -148,22 +148,28 @@ class App extends Component {
 
 
         <Content className="app-content">
-          <Layout>
+          <Layout style={{backgroundColor:"#FAFAFA"}}>
 
             {/* 사이드 바 */}
             {sider}
 
+            <Switch>
+                
+                <Route path="/login"
+                   render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
+                
+          
             <div className="center">
-              <div className="main" >
-                <Switch>
-                  <Route path="/login"
-                    render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
-                  <Route path="/signup" component={Signup}></Route>
+            <div className="main" >
+                   
+            <Switch>
+               
+            <Route path="/signup" component={Signup}></Route>
                   <PrivateRoute authenticated={this.state.isAuthenticated} exact path="/" handleLogout={this.handleLogout}
                     component={(props) => <Option1 isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}></PrivateRoute>
-                  <Route path="/users/:username"
-                    render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}>
-                  </Route>
+                  <PrivateRoute path="/users/:username" authenticated={this.state.isAuthenticated} handleLogout={this.handleLogout}
+                    component={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}>
+                  </PrivateRoute>
                   <PrivateRoute authenticated={this.state.isAuthenticated} path="/poll/new" component={NewPoll} handleLogout={this.handleLogout}></PrivateRoute>
                   <PrivateRoute authenticated={this.state.isAuthenticated} path="/Option1" handleLogout={this.handleLogout}
                     component={(props) => <Option1 isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}></PrivateRoute>
@@ -181,8 +187,9 @@ class App extends Component {
                  
                   <Route component={NotFound}></Route>
                 </Switch>
-              </div>
-            </div>
+                </div>
+                </div>
+                </Switch>
           </Layout>
           <Footer style={{ textAlign: 'center' }}>
             Design ©2019 Created by SungJun

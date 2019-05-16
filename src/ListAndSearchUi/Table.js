@@ -36,12 +36,13 @@ class DatePickers extends Component {
           key: 'description',
           dataIndex: 'description',
           render: (text, row, index) => (
-           <ModalTest hold={this.props.hold} data={row} modify={this.props.modify} modifyConfirm={this.props.modifyConfirm} />          
+            <ModalTest hold={this.props.hold} data={row} modify={this.props.modify} modifyConfirm={this.props.modifyConfirm} />          
            ),
         }],
         
         
     }
+    console.log(';;;;;;;;;;;;;;;;;;;;;;;;' +this.props.columns)
     if(this.props.columns != undefined){
         this.state.columns = this.state.columns.concat(this.props.columns)
     }

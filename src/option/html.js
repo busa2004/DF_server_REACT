@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 
 export function html4() {
@@ -370,4 +369,3 @@ export function html3() {
         console.log(a.byteLength());
         return a
 };
-

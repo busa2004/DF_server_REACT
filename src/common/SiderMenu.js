@@ -56,7 +56,7 @@ class Sider extends React.Component {
         mode="inline"
         openKeys={this.state.openKeys}
         onOpenChange={this.onOpenChange}
-        style={{ width: 'auto',height:1000,position:"fixed" }}
+        style={{ width: 'auto',height:1000,position:"fixed" ,fontWeight:"bold"}}
       >
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>업무</span></span>}>
           <Menu.Item key="1"><Link to="/Option1">업무리스트</Link></Menu.Item>

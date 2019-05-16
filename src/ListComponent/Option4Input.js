@@ -45,14 +45,14 @@ class Option4Input extends Component {
     
     render() {
         return (
-     <div style={{width:"100%"}} >
+     <div style={{width:"100%",marginBottom:"24px"}} >
         <InputGroup compact>
-          <Select defaultValue="일일" style={{width: '30%' }}>
+          <Select defaultValue="일일" style={{ width: '38%' }}>
             <Option value="일일">일일 보고서</Option>
             <Option value="주간">주간 보고서</Option>
             <Option value="월간">월간 보고서</Option>
           </Select>
-          <Input style={{ width: '60%' }} autoComplete="off" placeholder="업무" value={this.state.value} />
+          <Input style={{ width: '50%' }} autoComplete="off" placeholder="업무" value={this.state.value} />
           <Button icon="search" style={{ width: '10%' }} onClick={this.showModal} ></Button>
           <Modal
           title="업무선택하기"

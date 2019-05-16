@@ -20,3 +20,8 @@
 .signup-form input {
     margin-bottom: 3px;
 }
+
+.ant-btn.signup-form-button.ant-btn-primary.ant-btn-lg{
+    background-color: #00B1B6;
+    border-color: #00B1B6;
+    }

@@ -28,8 +28,6 @@ class Editor extends Component {
     config = {
         readonly: false // all options from https://xdsoft.net/jodit/doc/
     }
-
-    
     render() {
         return (
             <div>

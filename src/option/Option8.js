@@ -197,7 +197,7 @@ class Option8 extends Component {
             <div>
 
                 <div>
-                <Card title='업무부여'>
+                <Card title='업무부여' headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}>
                     <Row>
                         <Col span={11}><InfiniteListExample  
                         search ={this.state.search}

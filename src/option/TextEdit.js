@@ -10,15 +10,17 @@ import { createTask, createReport, getUserTaskDate } from '../util/APIUtils';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
+import Uploader from './Uploader'
 import { message } from 'antd';
 import {
-    Input, Select
+    Input, Select,Icon,Upload
 } from 'antd';
 import { html, html2, html3 } from './html';
+
 const Option = Select.Option;
 const InputGroup = Input.Group;
-const error = () => {
-    message.error('제목과 내용을 입력해야 합니다.');
+const error = (value) => {
+    message.error(value);
 };
 
 class TextEdit extends Component {
@@ -36,8 +38,10 @@ class TextEdit extends Component {
         this.loadCreateTask = this.loadCreateTask.bind(this);
         this.loadUserTask = this.loadUserTask.bind(this);
     };
-    success = () => {
-        message.success('새로운 업무를 등록하였습니다.');
+
+
+    success = (value) => {
+        message.success(value);
     };
     loadCreateTask(task) {
         this.setState({
@@ -50,7 +54,7 @@ class TextEdit extends Component {
                         ok: response,
                         isLoading: false
                     });
-                    this.success();
+                    this.success('새로운 업무를 등록하였습니다.');
                 }).catch(error => {
                     if (error.status === 404) {
                         this.setState({
@@ -71,7 +75,7 @@ class TextEdit extends Component {
                         ok: response,
                         isLoading: false,
                     });
-                    this.success();
+                    this.success('보고서 작성을 완료하였습니다.');
                 }).catch(error => {
                     if (error.status === 404) {
                         this.setState({
@@ -125,18 +129,29 @@ class TextEdit extends Component {
 
 
     onClick() {
-        if (this.state.content == '' || this.state.title == '') {
-            error();
-        } else {
+        if (this.state.content == '') {
+            error('내용을 입력해야 합니다.');
+        }else if(this.state.title == ''){
+            error('제목을 입력해야 합니다.');
+        }else if(this.state.router == 'report'&&this.state.userTaskId==null){
+            error('업무를 선택해야 합니다.');
+        }else {
             const task = { content: '', title: '' };
 
             task.content = this.state.content;
             task.title = this.state.title;
 
             if (this.state.router == 'report') {
+                task.fileName = this.state.fileName;
                 task.userTaskId = this.state.userTaskId;
             }
             this.loadCreateTask(task);
+            this.setState({
+                content:'',
+                title:'',
+                fileName:null,
+                userTaskId:null
+            })
         }
     };
     onChange = (e) => {
@@ -156,9 +171,17 @@ class TextEdit extends Component {
     config = {
         readonly: false, // all options from https://xdsoft.net/jodit/doc/
         width: '100%',
-       
+       height:'500px'
     }
 
+    onUpload=(value)=>{
+        var fileNameArr = value.map((num)=>num.name);
+        console.log(fileNameArr)
+        this.setState({
+            fileName:fileNameArr
+        })
+       
+    }
     render() {
         if (this.state.isLoading) {
             return <LoadingIndicator />;
@@ -186,6 +209,9 @@ class TextEdit extends Component {
                                 <Option value={html3()}>월간 보고서</Option>
                             </Select>
                             <Input title={'title'} value={this.state.title} style={{ width: '65%' }} placeholder="제목" onChange={this.onChange} />
+                            <Select style={{ width: '15%' }} placeholder="결제선 지정">
+            <Option value="팀장">팀장</Option>
+          </Select>
                         </InputGroup>
                     </div> :
                     <Input title={'title'} value={this.state.title} style={{ width: '65%' }} placeholder="제목" onChange={this.onChange} />
@@ -196,6 +222,9 @@ class TextEdit extends Component {
                     config={this.config}
                     onChange={this.updateContent}
                 />
+                <p></p>
+                {this.state.router == 'report' ?
+                <Uploader onUpload={this.onUpload}/>:''}
                 <div className='submit'>
                     <Button onClick={this.onClick}>등록하기</Button>
                 </div>

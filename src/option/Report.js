@@ -3,7 +3,7 @@ import Option4table from '../ListComponent/Option4table';
 import {
     Input
  } from 'antd';
- import { getAllReport, getAllTask,ReportConverter,deleteTask } from '../util/APIUtils';
+ import { getAllReport, getAllTask,ReportConverter } from '../util/APIUtils';
 import Option4DatePick from '../ListComponent/Option4DatePicker';
 import Option4Search from '../ListComponent/Option4Search';
 import Option4Input from '../ListComponent/Option4Input';
@@ -11,13 +11,12 @@ import Option4modal from '../ListComponent/Option4modal';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
-import { Popconfirm, message,Button } from 'antd';
+import { message } from 'antd';
  const InputGroup = Input.Group;
 
 class Report extends Component {
     constructor(props) {
         super(props);
-
         var d = new Date();
         this.progress = this.progress.bind(this);
         this.state = {
@@ -34,8 +33,6 @@ class Report extends Component {
         this.state.value.from=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
         this.state.value.to=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+(d.getDate()+1);
         this.load = this.load.bind(this);
-        this.loadDelete = this.loadDelete.bind(this);
-        console.log('--------------'+this.props.text)
     }
     success = () => {
       message.success('변경 사항이 저장되었습니다.');
@@ -54,7 +51,6 @@ class Report extends Component {
         this.load();
     }
     load() {
-      
         this.setState({
             isLoading: true,
         });
@@ -108,39 +104,6 @@ class Report extends Component {
          }
       }
       
-
-
-    
-
-      loadDelete(id) {
-        this.setState({
-            isLoading: true,
-        });
-        deleteTask(id)
-        .then(response => {
-            this.setState({
-                ok: response,
-                isLoading: false
-                
-              });
-              this.load();
-        }).catch(error => {
-            if(error.status === 404) {
-                this.setState({
-                    notFound: true,
-                    isLoading: false
-                });
-            } else {
-                this.setState({
-                    serverError: true,
-                    isLoading: false
-                });        
-            }
-        });    
-    
-        }
-
-
       ModalLoad(state) {
           console.log(state)
         this.setState({
@@ -203,25 +166,6 @@ class Report extends Component {
                   </span>
                 )}),
            });
-       }else if(this.state.route == 'task'){
-        this.setState({
-          columns:this.props.columns.concat( {
-                title: '삭제',
-                dataIndex: 'id',
-                key: 'id',
-                
-                render: (text) => {
-                  let confirm = () => {
-                    this.loadDelete(text)
-                  }
-                  return <Popconfirm placement="top" title={'정말로 삭제하시겠습니까?'} onConfirm={confirm} okText="Yes" cancelText="No">
-                    <Button>Top</Button>
-                  </Popconfirm>
-
-
-                }
-              })
-        })  
        }else{
              this.setState({
             columns:this.props.columns
@@ -248,17 +192,19 @@ class Report extends Component {
 
         return (
             <div className="Option4">
-                
+                <div style={{display:"flex", flexDirection: "row",width:"100%"}}>
                 <Option4DatePick
                 to={this.state.value.to} from={this.state.value.from}
                 dateSearch={this.dateSearch}/>
                 
-                <div style={{display:"flex", flexDirection: "row",marginTop:"10px",marginBottom:"10px"}}>
+
                 <Option4Input/>
                 <Option4Search 
                 searchValue={this.state.value.search}
                 search={this.search}/>
                 </div>
+
+
 
                 <Option4table
                 route = {this.state.route} 

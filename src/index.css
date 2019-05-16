@@ -3,8 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-}
 
+}
 .container {
   max-width: 100%;
   margin-left: auto;
@@ -12,19 +12,22 @@ body {
   padding-left: 15px;
   padding-right: 15px;
 }
-
 .center{
-  width : 100%;
-
+  width : 65%;
+  text-align: center;
   padding :20px;
-  margin-right: 400px;
+  margin-right: 150px;
+  margin-left: 5%;
+  margin-top: 30px;
 }
 .main{
   display: inline-block;
   width : 100%;
   
 }
-
+.marginRight{
+  margin-right: 200px;
+}
 .ant-fullcalendar-header{
   border-width: 1px;
   border-style: solid;
@@ -44,7 +47,7 @@ body {
   margin-top: 2em;
 }
 .information{
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 .Option2{
   text-align: left;
@@ -55,11 +58,14 @@ input.up:hover, input.up:focus, input.up:visited {
   box-shadow: none;
 }
 .submit{
-margin-top: 64px;
+margin-top: 20px;
 text-align: right;
 }
 @media (max-width: 768px) {
   h1 {
     font-size: 1.7em;
   }
+}
+body::-webkit-scrollbar { 
+  display: none; 
 }

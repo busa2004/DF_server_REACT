@@ -7,13 +7,11 @@ class SearchForm extends Component {
     render() {
        
         return (
-            <div>
-                
+            <div style={{width:"90%",marginLeft:"10px"}}>
                 <Search
                     placeholder="input search text"
                     onSearch={value =>  this.props.search(value)}
                     defaultValue={this.props.value}
-                    enterButton
                 />
                
             </div>

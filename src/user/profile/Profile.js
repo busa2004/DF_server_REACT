@@ -95,7 +95,7 @@ class Profile extends Component {
                                             <div className="user-profile">
                                                 <div className="user-details">
                                                     <div className="user-avatar">
-                                                        <FileUploader refresh={this.refresh} profile={this.state.user.profile} />
+                                                        <FileUploader userId={this.state.user.id} refresh={this.refresh} profile={this.state.user.profile} />
                                                     </div>
                                                     <div className="user-summary">
                                                         <div className="full-name">{this.state.user.name}</div>

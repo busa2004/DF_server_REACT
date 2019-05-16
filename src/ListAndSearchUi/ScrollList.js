@@ -137,6 +137,7 @@ const Search = Input.Search;
                   />
                   
                       <div> <Button value={item.id} onClick={this.onClick}>등록하기</Button></div>
+                      
                 </List.Item>
               )}
             >

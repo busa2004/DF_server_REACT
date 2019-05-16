@@ -12,7 +12,7 @@ class Login extends Component {
         
         const AntWrappedLoginForm = Form.create()(LoginForm)
         return (
-        <div >
+        <div style={{textAlign:"center",height:"500px"}}>
             <div className="login-container">
             
                 <h1 className="page-title">Login</h1>
@@ -43,12 +43,12 @@ class LoginForm extends Component {
                 }).catch(error => {
                     if(error.status === 401) {
                         notification.error({
-                            message: 'Polling App',
+                            message: '더존팩토리',
                             description: 'Your Username or Password is incorrect. Please try again!'
                         });                    
                     } else {
                         notification.error({
-                            message: 'Polling App',
+                            message: '더존팩토리',
                             description: error.message || 'Sorry! Something went wrong. Please try again!'
                         });                                            
                     }
@@ -86,7 +86,7 @@ class LoginForm extends Component {
                 </FormItem>
                 <FormItem>
                     <Button type="primary" htmlType="submit" size="large" className="login-form-button">Login</Button>
-                    Or <Link to="/signup">register now!</Link>
+                    Or <Link to="/signup" style={{color:"#00B1B6"}}>register now!</Link>
                 </FormItem>
             </Form>
         );
