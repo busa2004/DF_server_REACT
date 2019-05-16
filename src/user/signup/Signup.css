@@ -1,10 +1,22 @@
 .signup-container {
-    max-width: 420px;
     margin: 0 auto;
-    margin-top: 40px; 
        
 }
 
+.page-title{
+    margin-bottom: 20px;
+}
+
+.signup-content{
+    text-align: left;
+    width: 50%;
+    margin-left: 25%;
+}
+.edit-content{
+    text-align: left;
+    width: 80%;
+    margin-left: 10%;
+}
 .signup-form-button {
     width: 100%;
     margin-top: 15px;

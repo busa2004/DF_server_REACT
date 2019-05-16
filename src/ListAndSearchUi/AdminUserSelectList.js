@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { signup, checkUsernameAvailability, checkEmailAvailability } from '../../util/APIUtils';
-import './Signup.css';
+import { signup, checkUsernameAvailability, checkEmailAvailability } from '../util/APIUtils';
 import {Card } from 'antd';
 import { 
     NAME_MIN_LENGTH, NAME_MAX_LENGTH, 
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
     EMAIL_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
-} from '../../constants';
+} from '../constants';
 
 import { Form, Input, Button, notification } from 'antd';
 const FormItem = Form.Item;
 
-class Signup extends Component {
+class AdminUserSelectList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,13 +26,15 @@ class Signup extends Component {
             },
             password: {
                 value: ''
-            }
+            },
+            modifypassword : true
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this);
         this.validateEmailAvailability = this.validateEmailAvailability.bind(this);
         this.isFormInvalid = this.isFormInvalid.bind(this);
+        this.modify = this.modify.bind(this);
     }
 
     handleInputChange(event, validationFun) {
@@ -81,11 +82,22 @@ class Signup extends Component {
         );
     }
 
+    modify(){
+      if(this.state.modifypassword==true){
+      this.setState({
+        modifypassword : false
+      })
+    }else{
+      this.setState({
+        modifypassword : true
+      })
+    }
+    }
+
     render() {
         return (
             <div className="signup-container" style={{width:"100%"}}>
-                <Card title='회원가입' headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}>
-                <div className="signup-content">
+                <div className="edit-content">
                     <Form onSubmit={this.handleSubmit} className="signup-form">
                         <FormItem 
                             label="Full Name"
@@ -131,25 +143,28 @@ class Signup extends Component {
                             label="Password"
                             validateStatus={this.state.password.validateStatus}
                             help={this.state.password.errorMsg}>
+                            <div style={{display:"flex", flexDirection: "row"}}>
                             <Input 
+                                disabled={this.state.modifypassword}
                                 size="large"
                                 name="password" 
                                 type="password"
                                 autoComplete="off"
                                 placeholder="A password between 6 to 20 characters" 
                                 value={this.state.password.value} 
-                                onChange={(event) => this.handleInputChange(event, this.validatePassword)} />    
+                                onChange={(event) => this.handleInputChange(event, this.validatePassword)} /> 
+                                <Button size="large" style={{marginLeft:"5px"}} onClick={this.modify}>변경</Button>   
+                             </div>
                         </FormItem>
                         <FormItem>
                             <Button type="primary" 
                                 htmlType="submit" 
                                 size="large" 
                                 className="signup-form-button"
-                                disabled={this.isFormInvalid()}>Sign up</Button>
+                                disabled={this.isFormInvalid()}>수정하기</Button>
                         </FormItem>
                     </Form>
                 </div>
-                </Card>
             </div>
         );
     }
@@ -352,4 +367,4 @@ class Signup extends Component {
 
 }
 
-export default Signup;
+export default AdminUserSelectList;

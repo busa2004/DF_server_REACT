@@ -25,6 +25,13 @@ class Sider extends React.Component {
             <Menu.Item key="11">평가항목관리</Menu.Item>
           </SubMenu>
         </SubMenu>
+        ],
+        menu2:[
+          <SubMenu key="sub4" title={<span><Icon type="setting" /><span>회원관리</span></span>}>
+          <Menu.Item key="11"> <Link to="/signup">회원가입</Link></Menu.Item>
+          <Menu.Item key="12"><Link to="/Option12">회원정보수정</Link></Menu.Item>
+        </SubMenu>
+
         ]        
       })
     }
@@ -56,7 +63,7 @@ class Sider extends React.Component {
         mode="inline"
         openKeys={this.state.openKeys}
         onOpenChange={this.onOpenChange}
-        style={{ width: 'auto',height:1000,position:"fixed" ,fontWeight:"bold"}}
+        style={{ width: '200px',height:'1000px',position:"fixed" ,fontWeight:"bold"}}
       >
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>업무</span></span>}>
           <Menu.Item key="1"><Link to="/Option1">업무리스트</Link></Menu.Item>
@@ -64,12 +71,7 @@ class Sider extends React.Component {
           <Menu.Item key="3"><Link to="/Option3">보고서관리</Link></Menu.Item>
         </SubMenu>
           {this.state.menu}
-        <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
-          <Menu.Item key="11">Option 9</Menu.Item>
-          <Menu.Item key="12">Option 10</Menu.Item>
-          <Menu.Item key="13">Option 11</Menu.Item>
-          <Menu.Item key="14">Option 12</Menu.Item>
-        </SubMenu>
+          {this.state.menu2}
       </Menu>
     );
   }
