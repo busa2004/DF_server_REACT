@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tap from './Tap';
-import { getReport,deleteReport,modifyReport } from '../util/APIUtils';
+import { getReport,deleteReport,modifyReport,getUserTaskDate } from '../util/APIUtils';
 import  DatePickers from '../ListAndSearchUi/DatePickers';
 import  SerachForm from '../ListAndSearchUi/SearchForm';
 import  TabForm from '../ListAndSearchUi/TabForm';
@@ -10,6 +10,7 @@ import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
 import moment from 'moment';
 import {Card} from 'antd';
+import Selecter from '../WriteComponent/selecter'
 import { Popconfirm, Input,Button } from 'antd';
 const InputGroup = Input.Group;
 class Option3 extends Component {
@@ -22,6 +23,7 @@ class Option3 extends Component {
             isLoading: false,
             from:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),
             to:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+(d.getDate()+1),
+            userTaskId:null,
             search:'',
             columns: {
                 title: '삭제',
@@ -56,7 +58,7 @@ class Option3 extends Component {
                 isLoading: false
             
               });
-              this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to});
+              this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to,taskId:this.state.userTaskId});
         }).catch(error => {
             if(error.status === 404) {
                 this.setState({
@@ -83,7 +85,7 @@ class Option3 extends Component {
                 isLoading: false
             
               });
-              this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to});
+              this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to,taskId:this.state.userTaskId});
         }).catch(error => {
             if(error.status === 404) {
                 this.setState({
@@ -108,9 +110,9 @@ class Option3 extends Component {
         console.log('ss')
           this.setState({
             reports: response,
-              isLoading: false
           
             });
+            this.loadUserTask()
             console.log(this.state.reports)
       }).catch(error => {
           if(error.status === 404) {
@@ -127,8 +129,40 @@ class Option3 extends Component {
       });        
     }
     
+    loadUserTask() {
+      this.setState({
+          isLoading: true
+      });
+      getUserTaskDate()
+          .then(response => {
+              this.setState({
+                  userTask: response,
+                  isLoading: false
+              });
+          }).catch(error => {
+              if (error.status === 404) {
+                  this.setState({
+                      notFound: true,
+                      isLoading: false
+                  });
+              } else {
+                  this.setState({
+                      serverError: true,
+                      isLoading: false
+                  });
+              }
+          });
+  }
+  onUserTaskChange = (value) => {
+    this.setState({
+        userTaskId: value
+    })
+    this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to,taskId:value})
+    console.log(`selected ${value}`);
+}
     componentWillMount() {
-     this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to});
+     
+     this.loadReport({search:this.state.search,from:this.state.from,to:this.state.to,taskId:this.state.userTaskId});
     }
     
     modifyConfirm=(content,id)=>{
@@ -154,7 +188,7 @@ class Option3 extends Component {
         this.setState({
             search:data
         })
-       let body={search:data,from:this.state.from,to:this.state.to}
+       let body={search:data,from:this.state.from,to:this.state.to,taskId:this.state.userTaskId}
         this.loadReport(body);
         console.log(data)
     }
@@ -166,7 +200,7 @@ class Option3 extends Component {
             from:dateSearch[0],
             to:dateSearch[1],
         });
-        let body={search:this.state.search,from:dateSearch[0],to:dateSearch[1]}
+        let body={search:this.state.search,from:dateSearch[0],to:dateSearch[1],taskId:this.state.userTaskId}
         this.loadReport(body);
         // this.setState({
         //     startDate:date[0]._i,
@@ -187,7 +221,6 @@ class Option3 extends Component {
             return <ServerError />;
           }
           console.log(this.state.reports);
-          console.log('-------------------'+this.state.from)   
           
      
         
@@ -201,8 +234,9 @@ class Option3 extends Component {
                 <InputGroup compact>
                 <div style={{display:"flex", flexDirection: "row"}}>
                 <DatePickers dateSearch={this.dateSearch} to={this.state.to} from={this.state.from} />
+                <Selecter onUserTaskChange={this.onUserTaskChange} userTask={this.state.userTask} userTaskId={this.state.userTaskId}/>
                 <SerachForm search={this.search} value={this.state.search}/></div>
-
+                
                 </InputGroup>
                      <Row>
                          <Col span={24}><TabForm modifyConfirm={this.modifyConfirm} reports={this.state.reports} columns={this.state.columns}/></Col>

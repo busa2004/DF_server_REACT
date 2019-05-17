@@ -32,6 +32,11 @@ class DatePickers extends Component {
           dataIndex: 'status',
           key: 'status',
         } , {
+          //5.16 업무 칼럼 추가 taskTitle
+          title: '업무',
+          dataIndex: 'taskTitle',
+          key: 'taskTitle',
+        } ,{
           title: '보고서 보기',
           key: 'description',
           dataIndex: 'description',

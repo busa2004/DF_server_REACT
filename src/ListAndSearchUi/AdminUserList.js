@@ -8,7 +8,6 @@ import './ScrollList.css';
 import { Input, Button  } from 'antd';
 import {BASE_URL, API_BASE_URL} from '../constants/index'
 const Search = Input.Search;
-const fakeDataUrl = API_BASE_URL+'/user/all';
 
 class AdminUserList extends Component {
 
@@ -17,7 +16,7 @@ class AdminUserList extends Component {
       this.onClick = this.onClick.bind(this);     
   }    
   state = { 
-    data: [],
+    data: this.props.data,
     loading: false,
     hasMore: true,
     size: 'large',
@@ -29,57 +28,16 @@ class AdminUserList extends Component {
       console.log('lu')
   }
  
-  componentDidMount() {
-    this.load();
-  }
+  
   
   searchUser= (data) =>{
-    this.state.search = data
-    this.load();
+    
+    this.props.userSearch(data);
   }
 
-  load(){
-    this.fetchData((res) => {
-      this.setState({
-        data: res,
-      });
-    });
-  }
 
-  fetchData = (callback) => {
-    reqwest({
-      url: fakeDataUrl+'?search='+this.state.search,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: (res) => {
-        callback(res);
-        
-      },
-    });
-  }
 
-  handleInfiniteOnLoad = () => {
-    let data = this.state.data;
-    this.setState({
-      loading: true,
-    });
-    if (data.length > 3) {
-      message.warning('Infinite List loaded all');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
-    this.fetchData((res) => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false,
-      });
-    });
-  }
+
   onClick= (e) => {   
     this.props.clickButton(e.target.value,this.state.search);
    }
@@ -101,7 +59,7 @@ class AdminUserList extends Component {
         <InfiniteScroll
           initialLoad={false}
           pageStart={0}
-          loadMore={this.handleInfiniteOnLoad}
+          
           hasMore={!this.state.loading && this.state.hasMore}
           useWindow={false}
         >

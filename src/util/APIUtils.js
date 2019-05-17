@@ -71,7 +71,13 @@ export function signup(signupRequest) {
         body: JSON.stringify(signupRequest)
     });
 }
-
+export function profileModify(modify) {
+    return request({
+        url: API_BASE_URL + "/user/modify",
+        method: 'POST',
+        body: JSON.stringify(modify)
+    });
+}
 export function checkUsernameAvailability(username) {
     return request({
         url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
@@ -97,7 +103,12 @@ export function getCurrentUser() {
         method: 'GET'
     });
 }
-
+export function getOtherUserProfile(userId) {
+    return request({
+        url: API_BASE_URL + "/user/profile?userId=" + userId,
+        method: 'GET'
+    });
+}
 export function getUserProfile(username) {
     return request({
         url: API_BASE_URL + "/users/" + username,
@@ -132,6 +143,22 @@ export function getUserTask() {
     return request({
         url: API_BASE_URL + "/usertask/all",
         method: 'GET'
+    });
+}
+export function getAllUserTask() {
+
+
+    return request({
+        url: API_BASE_URL + "/usertask/getAll",
+        method: 'GET'
+    });
+}
+export function getAllTaskNoSearch() {
+
+
+    return request({
+        url: API_BASE_URL + "/task/all/noSearch",
+        method: 'POST'
     });
 }
 

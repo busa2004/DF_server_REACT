@@ -7,10 +7,11 @@ class Selecter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userTask: this.props.userTask
-
+      userTask: this.props.userTask,
+      userTaskId : this.props.userTaskId
     };
     console.log(this.state.userTask)
+    console.log(this.state.userTaskId)
   };
   
 
@@ -31,7 +32,13 @@ class Selecter extends Component {
       <Select
         showSearch
         style={{ width: 200 }}
-        placeholder="업무 선택"
+        placeholder={this.state.userTaskId==null?
+          '업무선택':this.state.userTask.map((contact, i) => {
+            console.log(contact,this.state.userTaskId)
+          if(this.state.userTaskId == contact.id){
+          return (contact.title);
+          }
+        })}
         optionFilterProp="children"
         onChange={value => this.props.onUserTaskChange(value)}
         onFocus={this.onFocus}
@@ -42,7 +49,7 @@ class Selecter extends Component {
         }
       >
             {this.state.userTask.map((contact, i) => {
-      return ( <Option value={contact.id}>{contact.title}</Option>);
+      return ( <Option key={i} value={contact.id}>{contact.title}</Option>);
     })}
       </Select>
     )

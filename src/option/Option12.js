@@ -1,18 +1,14 @@
-import TabForm from '../ListAndSearchUi/userTaskTab';
-import { Table, Divider, Tag } from 'antd';
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-import InfiniteListExample from '../ListAndSearchUi/ScrollList';
-import { r} from '../util/APIUtils';
-import SelectList from '../ListAndSearchUi/SelectList';
-import { getSelectTask,createUserTask,deleteUserTask } from '../util/APIUtils';
+import {getOtherUserProfile,profileModify } from '../util/APIUtils';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
-import { Modal, Button } from 'antd';
-import {Card} from 'antd';
+import {Card,notification} from 'antd';
 import AdminUserList from '../ListAndSearchUi/AdminUserList';
 import AdminUserSelectList from '../ListAndSearchUi/AdminUserSelectList';
+import reqwest from 'reqwest';
+import { API_BASE_URL} from '../constants/index'
 class Option12 extends Component {
     constructor(props) {
         super(props);
@@ -24,79 +20,38 @@ class Option12 extends Component {
             search:'',
             taskIds:[],
             taskSearch:'',
-           dataSource:[{
-             key:1,
-             itemNo:1,
-             content:'input text'
-           }]
           
         }
-        this.loadTask = this.loadTask.bind(this);
-        this.loadCreateUserTask = this.loadCreateUserTask.bind(this);
+        this.loadProfile = this.loadProfile.bind(this);
         
     }
 
-    deleteUserTaskButton = (record) => { 
-  }
-  searchTask = (data) =>{
-    let search ={};
-    this.setState({
-      taskSearch : data
-    });
-    search.search = data;
-    search.userId = this.state.userId;
-    this.loadTask(search)
-  }
     clickButton = (data,search) => {
         let userId={userId:data}
-        this.loadTask(userId)
+        this.loadProfile(data)
         this.setState({
             userId:data,
             search:search
         })
        
     }
-    createAndDeleteButton = (data,order,time) => {
-      // 여기까지 했음 
-      //  this.createUserTask(data) 이거 구현
     
-      let userTask={};
-      userTask.userId = this.state.userId;
-      
-      for(let i = 0 ;  i < data.length; i++){
-       this.state.taskIds.push(data[i].id);
-      }
-      userTask.taskIds =  this.state.taskIds;
-      this.setState({
-        taskIds:[]
-      })
-      if(order=='create'){
-      userTask.startDate=time[0];
-      userTask.endDate=time[1];
-      this.loadCreateUserTask(userTask);
-      }
-      else{
-        this.loadDeleteUserTask(userTask);
-      }
-    }
 
-    a=()=>{
-      r(this.state.dataSource)
-    }
 
-    loadTask(data) {
+
+    loadProfile(data) {
         this.setState({
             isLoading: true
         });
       
-        getSelectTask(data)
+        getOtherUserProfile(data)
         .then(response => {
             this.setState({
-              tasks: response,
+              profile: response,
                 isLoading: false
                 
               });
-  
+              console.log(this.state.profile)
         }).catch(error => {
             if(error.status === 404) {
                 this.setState({
@@ -114,69 +69,60 @@ class Option12 extends Component {
         });        
       }
 
-      loadCreateUserTask(data) {
-        this.setState({
-            isLoading: true
-          
-        });
-      
-        createUserTask(data)
+      onModify = (modify) => {
+        profileModify(modify)
         .then(response => {
-          let userId = {userId:this.state.userId}
-          this.loadTask(userId);
-            this.setState({
-                ok:response,
-                
-  
-              });
+           
+            notification.success({
+                message: '더존팩토리',
+                description: "수정되었습니다.",
+            });          
+            this.load();
+           
         }).catch(error => {
-            if(error.status === 404) {
-                this.setState({
-                    notFound: true,
-                    isLoading: false
-                });
-            } else {
-                this.setState({
-                    serverError: true,
-                    isLoading: false
-                });        
-            }
-        });        
-      }
-
-      loadDeleteUserTask(data) {
-        this.setState({
-            isLoading: true
-          
+            notification.error({
+                message: '더존팩토리',
+                description: error.message || 'Sorry! Something went wrong. Please try again!'
+            });
         });
-      
-        deleteUserTask(data)
-        .then(response => {
-          let userId = {userId:this.state.userId}
-          this.loadTask(userId);
-            this.setState({
-                ok:response,
-               
+       
+    }
+    componentDidMount() {
+      this.load();
+    }
+    userSearch=(data)=>{
+      this.state.search=data;
+      this.load();
+    }
+    load = () =>{
+      this.setState({
+        isLoading: true
+      });
+      this.fetchData((res) => {
+        this.setState({
+          data: res,
+          isLoading: false
+        });
+        if(this.state.userId != null){
+        this.loadProfile(this.state.userId)}
+        console.log(this.state.data)
+      });
+    }
   
-              });
-        }).catch(error => {
-            if(error.status === 404) {
-                this.setState({
-                    notFound: true,
-                    isLoading: false
-                });
-            } else {
-                this.setState({
-                    serverError: true,
-                    isLoading: false
-                });        
-            }
-        });        
-      }
-
+    fetchData = (callback) => {
+      reqwest({
+        url: API_BASE_URL+'/user/all?search='+this.state.search,
+        type: 'json',
+        method: 'get',
+        contentType: 'application/json',
+        success: (res) => {
+          callback(res);
+          
+        },
+      });
+    }
 
     render() {
-      this.a();
         if(this.state.isLoading) {
             return <LoadingIndicator />;
           }
@@ -195,13 +141,10 @@ class Option12 extends Component {
                 <div>
                 <Card title='회원정보수정' headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}>
                     <Row>
-                        <Col span={10}><AdminUserList 
-                        search ={this.state.search}
+                        <Col span={10}><AdminUserList  load={this.load} data = {this.state.data} userSearch={this.userSearch}
+                        search ={this.state.search} 
                         clickButton={this.clickButton} /></Col>
-                         <Col span={14}><AdminUserSelectList searchTask={this.searchTask} tasks={this.state.tasks}
-                         createAndDeleteButton={this.createAndDeleteButton}
-                         userId={this.state.userId}
-                         taskSearch={this.state.taskSearch}/></Col> 
+                         <Col span={14}><AdminUserSelectList onModify={this.onModify} profile={this.state.profile}/></Col> 
                        
                     </Row>
                 </Card> 

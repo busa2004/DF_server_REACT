@@ -23,6 +23,7 @@ class TabForm extends Component {
         console.log(';llllllllllllllllllllll' + this.state.columns)
     }
 
+    //5.16 업무 칼럼 추가 taskTitle
     pushProperty(i){
         
         return {
@@ -32,6 +33,7 @@ class TabForm extends Component {
              "description" : this.state.reports[i].description,
              "id" :this.state.reports[i].id,
              "fileName":this.state.reports[i].fileName,
+             "taskTitle" : this.state.reports[i].userTask.task.title,
             tags: ['cool', 'teacher']
             };
     }

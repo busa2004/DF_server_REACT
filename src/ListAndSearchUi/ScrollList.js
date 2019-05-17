@@ -69,27 +69,27 @@ const Search = Input.Search;
       });
     }
   
-    handleInfiniteOnLoad = () => {
-      let data = this.state.data;
-      this.setState({
-        loading: true,
-      });
-      if (data.length > 3) {
-        message.warning('Infinite List loaded all');
-        this.setState({
-          hasMore: false,
-          loading: false,
-        });
-        return;
-      }
-      this.fetchData((res) => {
-        data = data.concat(res.results);
-        this.setState({
-          data,
-          loading: false,
-        });
-      });
-    }
+    // handleInfiniteOnLoad = () => {
+    //   let data = this.state.data;
+    //   this.setState({
+    //     loading: true,
+    //   });
+    //   if (data.length > 3) {
+       
+    //     this.setState({
+    //       hasMore: false,
+    //       loading: false,
+    //     });
+    //     return;
+    //   }
+    //   this.fetchData((res) => {
+    //     data = data.concat(res.results);
+    //     this.setState({
+    //       data,
+    //       loading: false,
+    //     });
+    //   });
+    // }
     onClick= (e) => {
         
         
@@ -121,7 +121,7 @@ const Search = Input.Search;
           <InfiniteScroll
             initialLoad={false}
             pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
+           
             hasMore={!this.state.loading && this.state.hasMore}
             useWindow={false}
           >

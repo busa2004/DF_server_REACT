@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { signup, checkUsernameAvailability, checkEmailAvailability } from '../util/APIUtils';
+import { profileModify, checkUsernameAvailability, checkEmailAvailability } from '../util/APIUtils';
 import {Card } from 'antd';
 import { 
     NAME_MIN_LENGTH, NAME_MAX_LENGTH, 
@@ -14,15 +14,21 @@ const FormItem = Form.Item;
 class AdminUserSelectList extends Component {
     constructor(props) {
         super(props);
+        let tmp;
+        if(this.props.profile!=null){
+          tmp = this.props.profile
+        }else{
+            tmp = {name:'',usernam:'',email:''}
+        }
         this.state = {
             name: {
-                value: ''
+                value: tmp.name
             },
             username: {
-                value: ''
+                value: tmp.username
             },
             email: {
-                value: ''
+                value: tmp.email
             },
             password: {
                 value: ''
@@ -53,29 +59,19 @@ class AdminUserSelectList extends Component {
     handleSubmit(event) {
         event.preventDefault();
     
-        const signupRequest = {
+        const modify = {
+            id:this.props.profile.id,
             name: this.state.name.value,
             email: this.state.email.value,
             username: this.state.username.value,
             password: this.state.password.value
         };
-        signup(signupRequest)
-        .then(response => {
-            notification.success({
-                message: '더존팩토리',
-                description: "Thank you! You're successfully registered. Please Login to continue!",
-            });          
-            this.props.history.push("/login");
-        }).catch(error => {
-            notification.error({
-                message: '더존팩토리',
-                description: error.message || 'Sorry! Something went wrong. Please try again!'
-            });
-        });
+        this.props.onModify(modify)
+        
     }
 
     isFormInvalid() {
-        return !(this.state.name.validateStatus === 'success' &&
+        return (this.state.name.validateStatus === 'success' &&
             this.state.username.validateStatus === 'success' &&
             this.state.email.validateStatus === 'success' &&
             this.state.password.validateStatus === 'success'

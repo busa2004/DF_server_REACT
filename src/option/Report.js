@@ -3,7 +3,7 @@ import Option4table from '../ListComponent/Option4table';
 import {
     Input
  } from 'antd';
- import { getAllReport, getAllTask,ReportConverter } from '../util/APIUtils';
+ import { getAllReport, getAllTask,ReportConverter,getAllTaskNoSearch } from '../util/APIUtils';
 import Option4DatePick from '../ListComponent/Option4DatePicker';
 import Option4Search from '../ListComponent/Option4Search';
 import Option4Input from '../ListComponent/Option4Input';
@@ -12,6 +12,7 @@ import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
 import { message } from 'antd';
+import Selecter from '../WriteComponent/selecter'
  const InputGroup = Input.Group;
 
 class Report extends Component {
@@ -24,7 +25,7 @@ class Report extends Component {
         value:{status:this.props.status},
         title:this.props.title,
         route:this.props.route,
-        
+        taskId:null,
        
         datas:null,
         ok:null
@@ -59,9 +60,9 @@ class Report extends Component {
         .then(response => {
             this.setState({
                 datas: response,
-                isLoading: false
                 
               });
+              this.loadUserTask()
         }).catch(error => {
             if(error.status === 404) {
                 this.setState({
@@ -148,10 +149,35 @@ class Report extends Component {
       }
     
    
-
+      loadUserTask() {
+        this.setState({
+            isLoading: true
+        });
+        getAllTaskNoSearch()
+            .then(response => {
+                this.setState({
+                    userTask: response,
+                    isLoading: false
+                });
+            }).catch(error => {
+                if (error.status === 404) {
+                    this.setState({
+                        notFound: true,
+                        isLoading: false
+                    });
+                } else {
+                    this.setState({
+                        serverError: true,
+                        isLoading: false
+                    });
+                }
+            });
+      }
 
 
       componentWillMount() {
+        this.loadUserTask()
+
        if(this.state.route == 'report'){
            this.setState({
             columns:this.props.columns.concat( {
@@ -176,6 +202,13 @@ class Report extends Component {
       }
      
 
+      onUserTaskChange = (value) => {
+        
+        console.log(`selected ${value}`);
+        this.state.value.taskId=value;
+        this.state.taskId=value
+        this.load();
+    }
 
     render() {
         if(this.state.isLoading) {
@@ -198,7 +231,8 @@ class Report extends Component {
                 dateSearch={this.dateSearch}/>
                 
 
-                <Option4Input/>
+                {this.state.route == 'report'?<Selecter onUserTaskChange={this.onUserTaskChange} userTask={this.state.userTask} userTaskId={this.state.taskId}/>
+                :''}
                 <Option4Search 
                 searchValue={this.state.value.search}
                 search={this.search}/>
