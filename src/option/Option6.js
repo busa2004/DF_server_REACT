@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import Report from './Report';
-import {
-    Table, Input, Button, Icon,
-  } from 'antd';
-  import Highlighter from 'react-highlight-words';
-  import {Card} from 'antd';
+import Report from '../Component/ListComponent/Report';
+import {Input, Button, Icon,Card} from 'antd';
+import Highlighter from 'react-highlight-words';
   
 
 class Option6 extends Component {
@@ -13,13 +10,15 @@ class Option6 extends Component {
         this.state = {
             searchText: '',
             columns : [{
-                title: 'title',
+                align: "center",
+                title: '제목',
                 dataIndex: 'title',
                 key: 'title',
                 ...this.getColumnSearchProps('title')
               
               }, {
-                title: 'content',
+                align: "center",
+                title: '내용',
                 dataIndex: 'content',
                 key: 'content',
                
@@ -29,7 +28,8 @@ class Option6 extends Component {
                   return  <div dangerouslySetInnerHTML={ {__html: text} }></div>
                 }
               },{
-                title: 'createdAt',
+                align: "center",
+                title: '날짜',
                 dataIndex: 'createdAt',
                 key: 'createdAt',
                 ...this.getColumnSearchProps('createdAt'),
@@ -37,11 +37,7 @@ class Option6 extends Component {
                   let date = new Date(text);
                   return <div>{date.getFullYear()+"-"+
                               (date.getMonth()+1)+"-"+
-                              date.getDate()}<br/>{
-                              date.getHours()+":"+
-                              date.getMinutes()+":"+
-                              date.getSeconds()
-                               }</div>
+                              date.getDate()}</div>
                 }
               }]
         }

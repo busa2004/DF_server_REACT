@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Option1Calendar from './Calendar';
+import Option1Calendar from '../Component/CalendarComponent/Calendar';
 import { getUserTask,getUserCalendar } from '../util/APIUtils';
 import LoadingIndicator from '../common/LoadingIndicator';
 import {Card} from 'antd';

@@ -5,8 +5,8 @@ import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
 import {Card,notification} from 'antd';
-import AdminUserList from '../ListAndSearchUi/AdminUserList';
-import AdminUserSelectList from '../ListAndSearchUi/AdminUserSelectList';
+import AdminUserList from '../Component/ListComponent/AdminUserList';
+import AdminUserSelectList from '../Component/ListComponent/AdminUserSelectList';
 import reqwest from 'reqwest';
 import { API_BASE_URL} from '../constants/index'
 class Option12 extends Component {

@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import Report from './Report';
-import {
-    Table, Input, Button, Icon,
-  } from 'antd';
+import Report from '../Component/ListComponent/Report';
+import {Card,Input, Button, Icon} from 'antd';
   import Highlighter from 'react-highlight-words';
-  import {Card} from 'antd';
 class Option4 extends Component {
     constructor(props) {
         super(props);
         this.state = {
             searchText: '',
             columns : [{
-                title: 'title',
+                align: "center",
+                title: '제목',
                 dataIndex: 'title',
                 key: 'title',
                 ...this.getColumnSearchProps('title')
               
               },  {
-                title: 'taskTitle',
+                align: "center",
+                title: '업무',
                 dataIndex: 'taskTitle',
                 key: 'taskTitle',
                 ...this.getColumnSearchProps('taskTitle')
               },  {
-                title: 'userName',
+                align: "center",
+                title: '이름',
                 dataIndex: 'userName',
                 key: 'userName',
                 ...this.getColumnSearchProps('userName')
               },{
-                title: 'createdAt',
+                align: "center",
+                title: '날짜',
                 dataIndex: 'createdAt',
                 key: 'createdAt',
                 ...this.getColumnSearchProps('createdAt')

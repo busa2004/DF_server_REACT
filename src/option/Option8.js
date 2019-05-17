@@ -1,16 +1,12 @@
-import TabForm from '../ListAndSearchUi/userTaskTab';
-import { Table, Divider, Tag } from 'antd';
+
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
-import InfiniteListExample from '../ListAndSearchUi/ScrollList';
-import { r} from '../util/APIUtils';
-import SelectList from '../ListAndSearchUi/SelectList';
+import { Row, Col,Card } from 'antd';
+import InfiniteListExample from '../Component/ListComponent/ScrollList';
+import SelectList from '../Component/ListComponent/SelectList';
 import { getSelectTask,createUserTask,deleteUserTask } from '../util/APIUtils';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
-import { Modal, Button } from 'antd';
-import {Card} from 'antd';
 class Option8 extends Component {
     constructor(props) {
         super(props);
@@ -34,14 +30,10 @@ class Option8 extends Component {
         
     }
 
-   
-
-    deleteUserTaskButton = (record) => {
-
-      
-      
+  deleteUserTaskButton = (record) => { 
      
   }
+ 
   searchTask = (data) =>{
     let search ={};
     this.setState({
@@ -51,7 +43,8 @@ class Option8 extends Component {
     search.userId = this.state.userId;
     this.loadTask(search)
   }
-    clickButton = (data,search) => {
+  
+  clickButton = (data,search) => {
         let userId={userId:data}
         this.loadTask(userId)
         this.setState({
@@ -60,7 +53,7 @@ class Option8 extends Component {
         })
        
     }
-    createAndDeleteButton = (data,order,time) => {
+  createAndDeleteButton = (data,order,time) => {
       // 여기까지 했음 
       //  this.createUserTask(data) 이거 구현
     
@@ -84,11 +77,9 @@ class Option8 extends Component {
       }
     }
 
-    a=()=>{
-      r(this.state.dataSource)
-    }
 
-    loadTask(data) {
+
+  loadTask(data) {
         this.setState({
             isLoading: true
         });
@@ -118,7 +109,7 @@ class Option8 extends Component {
         });        
       }
 
-      loadCreateUserTask(data) {
+   loadCreateUserTask(data) {
         this.setState({
             isLoading: true
           
@@ -148,7 +139,7 @@ class Option8 extends Component {
         });        
       }
 
-      loadDeleteUserTask(data) {
+     loadDeleteUserTask(data) {
         this.setState({
             isLoading: true
           
@@ -180,7 +171,6 @@ class Option8 extends Component {
 
 
     render() {
-      this.a();
         if(this.state.isLoading) {
             return <LoadingIndicator />;
           }

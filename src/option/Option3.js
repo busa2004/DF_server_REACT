@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import Tap from './Tap';
 import { getReport,deleteReport,modifyReport,getUserTaskDate } from '../util/APIUtils';
-import  DatePickers from '../ListAndSearchUi/DatePickers';
-import  SerachForm from '../ListAndSearchUi/SearchForm';
-import  TabForm from '../ListAndSearchUi/TabForm';
-import { Row, Col } from 'antd';
+import  DatePickers from '../Component/ListComponent/DatePickers';
+import  SerachForm from '../Component/ListComponent/SearchForm';
+import  TabForm from '../Component/ListComponent/TabForm';
+import { Row, Col, Card, Popconfirm, Input,Button } from 'antd';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
-import moment from 'moment';
-import {Card} from 'antd';
-import Selecter from '../WriteComponent/selecter'
-import { Popconfirm, Input,Button } from 'antd';
+import Selecter from '../Component/WriteComponent/selecter'
 const InputGroup = Input.Group;
 class Option3 extends Component {
 

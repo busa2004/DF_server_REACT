@@ -1,37 +1,28 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN } from '../constants';
+import { API_BASE_URL, ACCESS_TOKEN } from '../constants';
 import axios from 'axios';
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     })
-    
-    if(localStorage.getItem(ACCESS_TOKEN)) {
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
     }
 
-    const defaults = {headers: headers};
+    const defaults = { headers: headers };
     options = Object.assign({}, defaults, options); //Object.assign 병합하기 (타겟변수,값1,값2)
-    
+
     return fetch(options.url, options)  // header url method 설정후 fetch
-    .then(response =>  //받은값을 json으로 바꾸고
-        response.json().then(json => {
-            if(!response.ok) {  //response.ok 통신성공여부
-                return Promise.reject(json);
-            }
-            return json; //json을 리턴해준다
-        })
-    );
+        .then(response =>  //받은값을 json으로 바꾸고
+            response.json().then(json => {
+                if (!response.ok) {  //response.ok 통신성공여부
+                    return Promise.reject(json);
+                }
+                return json; //json을 리턴해준다
+            })
+        );
 };
 
-export function getAllPolls(page, size) {
-    page = page || 0;
-    size = size || POLL_LIST_SIZE;
-
-    return request({
-        url: API_BASE_URL + "/polls?page=" + page + "&size=" + size,
-        method: 'GET'
-    });
-}
 
 
 
@@ -40,21 +31,10 @@ export function getAllPolls(page, size) {
 
 
 
-export function createPoll(pollData) {
-    return request({
-        url: API_BASE_URL + "/polls",
-        method: 'POST',
-        body: JSON.stringify(pollData)         
-    });
-}
 
-export function castVote(voteData) {
-    return request({
-        url: API_BASE_URL + "/polls/" + voteData.pollId + "/votes",
-        method: 'POST',
-        body: JSON.stringify(voteData)
-    });
-}
+
+
+
 
 export function login(loginRequest) {
     return request({
@@ -94,7 +74,7 @@ export function checkEmailAvailability(email) {
 
 //localStorage : 브라우저상의 저장소
 export function getCurrentUser() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject("No access token set."); //resolve 성공 reject 실패
     }
 
@@ -116,25 +96,9 @@ export function getUserProfile(username) {
     });
 }
 
-export function getUserCreatedPolls(username, page, size) {
-    page = page || 0;
-    size = size || POLL_LIST_SIZE;
 
-    return request({
-        url: API_BASE_URL + "/users/" + username + "/polls?page=" + page + "&size=" + size,
-        method: 'GET'
-    });
-}
 
-export function getUserVotedPolls(username, page, size) {
-    page = page || 0;
-    size = size || POLL_LIST_SIZE;
 
-    return request({
-        url: API_BASE_URL + "/users/" + username + "/votes?page=" + page + "&size=" + size,
-        method: 'GET'
-    });
-}
 
 
 export function getUserTask() {
@@ -175,14 +139,14 @@ export function createTask(task) {
     return request({
         url: API_BASE_URL + "/task/create",
         method: 'POST',
-        body: JSON.stringify(task)         
+        body: JSON.stringify(task)
     });
 }
 export function createReport(report) {
     return request({
         url: API_BASE_URL + "/report/create",
         method: 'POST',
-        body: JSON.stringify(report)         
+        body: JSON.stringify(report)
     });
 }
 export function getTask() {
@@ -190,7 +154,7 @@ export function getTask() {
     return request({
         url: API_BASE_URL + "/task/all",
         method: 'GET'
-        
+
     });
 }
 export function getSelectTask(data) {
@@ -206,7 +170,7 @@ export function getUser() {
     return request({
         url: API_BASE_URL + "/user/all",
         method: 'GET'
-        
+
     });
 }
 
@@ -214,7 +178,7 @@ export function createUserTask(userTask) {
     return request({
         url: API_BASE_URL + "/usertask/create",
         method: 'POST',
-        body: JSON.stringify(userTask)         
+        body: JSON.stringify(userTask)
     });
 }
 
@@ -222,14 +186,14 @@ export function deleteUserTask(userTask) {
     return request({
         url: API_BASE_URL + "/usertask/delete",
         method: 'POST',
-        body: JSON.stringify(userTask)         
+        body: JSON.stringify(userTask)
     });
 }
 
 export function getUserCalendar() {
 
     return request({
-        url: API_BASE_URL+'/usertask',
+        url: API_BASE_URL + '/usertask',
         method: 'GET'
     });
 }
@@ -237,7 +201,7 @@ export function getUserCalendar() {
 export function getUserTaskDate() {
 
     return request({
-        url: API_BASE_URL+'/usertask/date',
+        url: API_BASE_URL + '/usertask/date',
         method: 'GET'
     });
 }
@@ -246,18 +210,18 @@ export function getAllReport(body) {
     return request({
         url: API_BASE_URL + '/report/al',
         method: 'POST',
-        body: JSON.stringify(body)    
+        body: JSON.stringify(body)
     });
 }
 
 
-export function modifyReport(content,id) {
-    let modify = {content:content, id:id}
+export function modifyReport(content, id) {
+    let modify = { content: content, id: id }
     return request({
         url: API_BASE_URL + '/report/modify',
         method: 'POST',
-        body: JSON.stringify(modify)    
-        
+        body: JSON.stringify(modify)
+
     });
 }
 
@@ -267,7 +231,7 @@ export function getAllTask(body) {
     return request({
         url: API_BASE_URL + "/task/all",
         method: 'POST',
-        body: JSON.stringify(body)  
+        body: JSON.stringify(body)
     });
 }
 
@@ -276,7 +240,7 @@ export function changePassword(body) {
     return request({
         url: API_BASE_URL + "/user/changePassword",
         method: 'POST',
-        body: JSON.stringify(body)  
+        body: JSON.stringify(body)
     });
 }
 
@@ -285,14 +249,14 @@ export function ReportConverter(body) {
     return request({
         url: API_BASE_URL + "/report/update",
         method: 'POST',
-        body: JSON.stringify(body)  
+        body: JSON.stringify(body)
     });
 }
 
 export function deleteTask(id) {
 
     return request({
-        url: API_BASE_URL + "/task/delete?id="+id,
+        url: API_BASE_URL + "/task/delete?id=" + id,
         method: 'GET',
     });
 }
@@ -300,13 +264,11 @@ export function deleteTask(id) {
 export function deleteReport(id) {
 
     return request({
-        url: API_BASE_URL + "/report/delete?id="+id,
+        url: API_BASE_URL + "/report/delete?id=" + id,
         method: 'GET',
     });
 }
-export function r(body) {
-    console.log(body)
-}
+
 export function getRestClient(body) {
 
     return request({
@@ -315,36 +277,65 @@ export function getRestClient(body) {
         body: JSON.stringify(body)
     });
 }
+export function getUserByTaskNo(taskId) {
+    return request({
+        url: API_BASE_URL + "/usertask/get?taskId=" + taskId,
+        method: 'GET'
+    });
+}
 
+//////////////// sh
+export function setEvalVersion(versionValue) {
+    console.log(versionValue);
+
+    return request({
+        url: API_BASE_URL + '/eval/createVersion',
+        method: 'POST',
+        body: JSON.stringify(versionValue)
+    });
+}
+// version Name만 가져옴
+export function getAllEvalVersion() {
+    return request({
+        url: API_BASE_URL + '/eval/getAllVersion',
+        method: 'GET'
+    });
+}
+export function getEvalItemByVersion(version) {
+
+    return request({
+        url: API_BASE_URL + '/eval/getVersion?version=' + version,
+        method: 'GET'
+    });
+}
 class Service {
 
-  constructor() {
-    console.log("Service is constructed");
-  }
-
-  getRestClient = () =>{
-
-    
-
-
-    let a;
-    if(localStorage.getItem(ACCESS_TOKEN)) {
-        a =  localStorage.getItem(ACCESS_TOKEN)
-    }  
-    if (!this.serviceInstance) {
-      this.serviceInstance = axios.create({
-        baseURL: 'http://218.39.221.79:8080/api',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + a
-          },
-      });
+    constructor() {
+        console.log("Service is constructed");
     }
 
-    
-    return this.serviceInstance;
-  }
+    getRestClient = () => {
+
+
+
+
+        let a;
+        if (localStorage.getItem(ACCESS_TOKEN)) {
+            a = localStorage.getItem(ACCESS_TOKEN)
+        }
+        if (!this.serviceInstance) {
+            this.serviceInstance = axios.create({
+                baseURL: 'http://218.39.221.79:8080/api',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + a
+                },
+            });
+        }
+
+
+        return this.serviceInstance;
+    }
 }
 
 export default (new Service());
-

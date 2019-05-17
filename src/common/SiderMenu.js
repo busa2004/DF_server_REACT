@@ -19,10 +19,10 @@ class Sider extends React.Component {
           <Menu.Item key="6"><Link to="/Option6">업무리스트</Link></Menu.Item>
           <Menu.Item key="7"><Link to="/Option7">업무등록</Link></Menu.Item>
           <Menu.Item key="8"><Link to="/Option8">업무부여</Link></Menu.Item>
-          <SubMenu key="sub3" title="Submenu">
-            <Menu.Item key="9">평가하기</Menu.Item>
+          <SubMenu key="sub3" title="평가">
+            <Menu.Item key="9"><Link to="/Eval">평가하기</Link></Menu.Item>
             <Menu.Item key="10">평가순위</Menu.Item>
-            <Menu.Item key="11">평가항목관리</Menu.Item>
+            <Menu.Item key="11"><Link to="/ManageEvalItem">평가항목관리</Link></Menu.Item>
           </SubMenu>
         </SubMenu>
         ],

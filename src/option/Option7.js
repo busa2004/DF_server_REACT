@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import TextEdit from './TextEdit';
+import TextEdit from '../Component/WriteComponent/TextEdit';
 import {Card} from 'antd';
-import './edit.css'
+import './css/edit.css'
 
 class Option7 extends Component {
     render() {
