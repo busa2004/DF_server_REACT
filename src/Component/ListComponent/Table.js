@@ -10,10 +10,12 @@ class DatePickers extends Component {
     this.state = {
         reports: this.props.reports,
         columns : [{
+          align:'center',
           title: '제목',
           dataIndex: 'title',
           key: 'title',
         }, {
+          align:'center',
           title: '작성일자',
           dataIndex: 'date',
           key: 'date',
@@ -28,15 +30,18 @@ class DatePickers extends Component {
                          }</div>
           }
         },{
+          align:'center',
           title: '상태',
           dataIndex: 'status',
           key: 'status',
         } , {
           //5.16 업무 칼럼 추가 taskTitle
+          align:'center',
           title: '업무',
           dataIndex: 'taskTitle',
           key: 'taskTitle',
         } ,{
+          align:'center',
           title: '보고서 보기',
           key: 'description',
           dataIndex: 'description',
@@ -53,13 +58,6 @@ class DatePickers extends Component {
     }
    
 }
-
- 
-
-
-
-
-
 
   render() {
 

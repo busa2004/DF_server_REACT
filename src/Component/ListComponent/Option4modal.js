@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, Input } from 'antd';
 import { Row, Col, Slider, Card } from 'antd';
+import "./Option4modal.css"
 const { TextArea } = Input;
 const ButtonGroup = Button.Group;
 class Option4modal extends React.Component {
@@ -74,26 +75,23 @@ class Option4modal extends React.Component {
             </Row>
           </Card>
           <p></p>
-          <Card
-            title='반려사유작성란'
+          <Card className="no"
+            title='반려사유'
           >
-          <TextArea rows={4} onChange={this.onChange} />
+          <TextArea rows={4} onChange={this.onChange} placeholder="반려 시 필수 입력" />
           </Card>
           <p></p>
 
           <Row type="flex" justify="end">
             <Col span={4} >
 
-              <ButtonGroup>
-
-                <Button disabled={this.disabled()} size='large' onClick={id => this.props.progress(this.state.id, 'PROGRESS', this.state.textArea)}>
+                <Button style={{marginRight:"5px"}} type="primary" ghost disabled={this.disabled()} size='large' onClick={id => this.props.progress(this.state.id, 'PROGRESS', this.state.textArea)}>
                   승인
                 </Button>
-
-                <Button size='large' onClick={id => this.props.progress(this.state.id, 'HOLD', this.state.textArea)}>
+                <Button style={{marginRight:"5px"}} type="danger" ghost size='large' onClick={id => this.props.progress(this.state.id, 'HOLD', this.state.textArea)}>
                   반려
                 </Button>
-              </ButtonGroup>
+
             </Col>
           </Row>
 

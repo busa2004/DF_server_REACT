@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Popconfirm, message, Button } from 'antd';
-import { deleteTask } from '../../util/APIUtils';
-import LoadingIndicator from '../../common/LoadingIndicator';
-import ServerError from '../../common/ServerError';
-import NotFound from '../../common/NotFound';
+import { deleteTask } from '../util/APIUtils';
+import LoadingIndicator from '../common/LoadingIndicator';
+import ServerError from '../common/ServerError';
+import NotFound from '../common/NotFound';
 import Report from '../option/Report';
 const text = 'Are you sure to delete this task?';
 

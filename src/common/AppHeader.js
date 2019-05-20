@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import main_ci from '../img/main-ci.png'
 import './AppHeader.css';
+import pollIcon from '../poll.svg';
 import { Layout, Menu, Dropdown, Icon } from 'antd';
 const Header = Layout.Header;
     
@@ -27,7 +28,16 @@ class AppHeader extends Component {
         let menuItems;
         if(this.props.currentUser) {  //로그인여부에 따른 메뉴상태변경
           menuItems = [
-
+          //   <Menu.Item key="/">
+          //     <Link to="/">
+          //       <Icon type="home" className="nav-icon" />
+          //     </Link>
+          //   </Menu.Item>,
+          //   <Menu.Item key="/poll/new">
+          //   <Link to="/poll/new">
+          //     <img src={pollIcon} alt="poll" className="poll-icon" />
+          //   </Link>
+          // </Menu.Item>,
           <Menu.Item key="/profile" className="profile-menu">
                 <ProfileDropdownMenu 
                   currentUser={this.props.currentUser} 

@@ -13,13 +13,7 @@ import {
       columns:this.props.columns,
       arr :[]
       }
-   
-      
       }
-      
-    
-
-
     render() {
       return <Table  columns={this.state.columns} dataSource={this.state.data} />;
     }

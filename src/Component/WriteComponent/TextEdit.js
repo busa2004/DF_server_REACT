@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Button
 } from 'antd';
-import Selecter from './selecter'
+import Selecter from '../WriteComponent/selecter'
 import 'jodit';
 import 'jodit/build/jodit.min.css';
 import JoditEditor from "jodit-react";

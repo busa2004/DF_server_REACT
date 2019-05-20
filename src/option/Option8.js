@@ -1,12 +1,15 @@
-
+import { Table, Divider, Tag } from 'antd';
 import React, { Component } from 'react';
-import { Row, Col,Card } from 'antd';
+import { Row, Col } from 'antd';
 import InfiniteListExample from '../Component/ListComponent/ScrollList';
+import { r} from '../util/APIUtils';
 import SelectList from '../Component/ListComponent/SelectList';
 import { getSelectTask,createUserTask,deleteUserTask } from '../util/APIUtils';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
+import { Modal, Button } from 'antd';
+import {Card} from 'antd';
 class Option8 extends Component {
     constructor(props) {
         super(props);
@@ -77,7 +80,9 @@ class Option8 extends Component {
       }
     }
 
-
+  a=()=>{
+      r(this.state.dataSource)
+    }
 
   loadTask(data) {
         this.setState({
@@ -171,6 +176,7 @@ class Option8 extends Component {
 
 
     render() {
+      this.a();
         if(this.state.isLoading) {
             return <LoadingIndicator />;
           }

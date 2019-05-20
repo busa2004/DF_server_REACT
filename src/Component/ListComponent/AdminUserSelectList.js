@@ -6,7 +6,7 @@ import {
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
     EMAIL_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
-} from '../../constants/index';
+} from '../../constants';
 
 import { Form, Input, Button, notification } from 'antd';
 const FormItem = Form.Item;

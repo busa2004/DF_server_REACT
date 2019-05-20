@@ -5,26 +5,18 @@ import moment from 'moment';
 const columns = [{
   title: '상태',
   dataIndex: 'state',
-  filters: [{
-    text: '시작',
-    value: 'start',
-  }, {
-    text: '마감',
-    value: 'end',
-  }],
+  width: '20%',
   // specify the condition of filtering result
   // here is that finding the name started with `value`
-  onFilter: (value, record) => record.state.indexOf(value) === 0,
+
 }, {
   title: '제목',
   dataIndex: 'title',
-  defaultSortOrder: 'descend',
-  sorter: (a, b) => a.title - b.title,
+  width: '40%',
 }, {
   title: '내용',
   dataIndex: 'content',
-  sorter: (a, b) => a.content.length - b.content.length,
-  sortDirections: ['descend', 'ascend'],
+  width: '40%',
 }];
 
 function onChange(pagination, filters, sorter) {

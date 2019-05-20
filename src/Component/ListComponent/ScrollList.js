@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import './ScrollList.css';
 import { Input } from 'antd';
-import SelectList from './SelectList';
 import { Modal, Button } from 'antd';
 import {BASE_URL, API_BASE_URL} from '../../constants/index'
 const Search = Input.Search;
@@ -99,34 +98,25 @@ class InfiniteListExample extends Component {
       const size = this.state.size;
     return (
       <div>
-      <div>
+      <div>        
                
-                <br /><br />
                 <Search
                    defaultValue={this.state.search}
-                    placeholder="input search text"
+                    placeholder="사원 검색"
                     onSearch={value => this.searchUser(value)}
                     enterButton
                 />
-                <br /><br />
-               
+                <br /><br />    
             </div>
 
-
       <div className="demo-infinite-container">
-
-            
-
-
         <InfiniteScroll
           initialLoad={false}
-          pageStart={0}
-         
+          pageStart={0}       
           hasMore={!this.state.loading && this.state.hasMore}
           useWindow={false}
         >
-          <List
-          
+          <List 
             dataSource={this.state.data}
             renderItem={item => (
               <List.Item key={item.id}>
@@ -134,10 +124,8 @@ class InfiniteListExample extends Component {
                   avatar={<Avatar icon="user" size={80} src={BASE_URL+"test/"+item.profile} />}
                   title={<a href="https://ant.design">{item.name}</a>}
                   description={item.email}
-                />
-                
-                    <div> <Button value={item.id} onClick={this.onClick}>등록하기</Button></div>
-                    
+                />       
+                    <div> <Button value={item.id} onClick={this.onClick}>업무부여</Button></div>                 
               </List.Item>
             )}
           >

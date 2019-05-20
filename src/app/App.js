@@ -9,6 +9,8 @@ import {
 import { getCurrentUser } from '../util/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 import SiderMenu from '../common/SiderMenu';
+import PollList from '../poll/PollList';
+import NewPoll from '../poll/NewPoll';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Option1 from '../option/Option1';
@@ -173,7 +175,8 @@ class App extends Component {
 
               <Route path="/login"
                 render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
-
+               <Route path="/signup"
+                render={(props) => <Signup onLogin={this.handleLogin} {...props} />}></Route>
 
               <div className="center">
                 <div className="main" >
@@ -185,6 +188,7 @@ class App extends Component {
                     <Route path="/users/:username"
                       render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}>
                     </Route>
+                    <PrivateRoute authenticated={this.state.isAuthenticated} path="/poll/new" component={NewPoll} handleLogout={this.handleLogout}></PrivateRoute>
                     <PrivateRoute authenticated={this.state.isAuthenticated} path="/Option1" handleLogout={this.handleLogout}
                       component={(props) => <Option1 isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}></PrivateRoute>
                     <PrivateRoute authenticated={this.state.isAuthenticated} path="/Option2" handleLogout={this.handleLogout}

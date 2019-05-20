@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import reqwest from 'reqwest';
-import { List, message, Avatar, Spin, Input, Button } from 'antd';
-import { BASE_URL, API_BASE_URL } from '../constants/index'
-import InfiniteScroll from 'react-infinite-scroller';
+import { Button, Input } from 'antd';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
 import '../Component/ListComponent/ScrollList.css';
+import Option4table from '../Component/ListComponent/Option4table';
 
 const Search = Input.Search;
 
@@ -14,75 +12,53 @@ class EmpList extends Component {
   constructor(props) {
     super(props);
     this.state={
-      taskId: this.props.taskId
+      taskId: this.props.taskId,
+      columns: [{
+        title: '사번',
+        dataIndex: 'user.id',
+        key:'user_id'
+      }, {
+        title: '이름',
+        dataIndex: 'user.name',
+        key: 'name'
+      }, {
+        title: '업무 시작일',
+        dataIndex: 'startDate',
+        key: 'start_date'
+      }, {
+        title: '업무 마감일',
+        dataIndex: 'endDate',
+        key: 'end_date'
+      }],
+      tasks: this.props.tasks,
+      search: '',
+      evalButtonVisible: this.props.evalButtonVisible
     }
-    this.onClick = this.onClick.bind(this);
-    console.log(this.state.taskId);
+    console.log(this.state.tasks);
   }  
-  state = {
-    data: [],
-    loading: false,
-    hasMore: true,
-    size: 'large',
-    search: '',//this.props.search // search value
-  }
-  
-  componentDidMount() {
-    this.load();
+
+  getUser = (hi) => {    
+    console.log(hi);
+    // this.props.clickButton(e.target.value);
   }
 
-  // 사원 검색
-  searchUser = (data) => {
-    this.state.search = data
-    this.load();
-  }
-
-  load = () => {
-    this.fetchData((res) => {
-      this.setState({
-        data: res,
-      });
-    });
-  }
-
-  fetchData = (callback) => {
-    reqwest({
-      url: API_BASE_URL + "/usertask/get?taskId=" + this.state.taskId,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: (res) => {
-        console.log("fetchData");
-        console.log(res);
-        callback(res);
-      },
-    });
-  }
-
-  handleInfiniteOnLoad = () => {
-    let data = this.state.data;
+  componentWillMount() {
     this.setState({
-      loading: true,
+      columns: this.state.columns.concat({
+          title: 'Evaluation',
+          dataIndex: 'evalId',
+          key: 'evalId',          
+          render: (text) => {
+            let getUser = () => {
+              this.getUser(text);
+            }
+            return <Button 
+                      onClick={getUser}
+                      disabled={this.state.evalButtonVisible}
+                    >평가</Button>
+          }
+      })
     });
-    if (data.length > 3) {
-      message.warning('Infinite List loaded all');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
-    this.fetchData((res) => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false,
-      });
-    });
-  }
-
-  onClick = (e) => {    
-    this.props.clickButton(e.target.value);
   }
 
   render() {
@@ -99,45 +75,9 @@ class EmpList extends Component {
     }
     return (
       <div>
-        <div>
-          <Search
-            defaultValue={this.state.search}
-            placeholder="사원검색"
-            onSearch={value => this.searchUser(value)}
-            enterButton
-          />
-          <br /><br />
-        </div>
-        <div className="demo-infinite-container">
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
-            hasMore={!this.state.loading && this.state.hasMore}
-            useWindow={false}
-          >
-            <List
-              dataSource={this.state.data}
-              renderItem={item => (
-                <List.Item key={item.id}>
-                  <List.Item.Meta
-                    avatar={<Avatar icon="user" size={80} 
-                    src={BASE_URL + "test/" + item.profile} />}
-                    title={<a href="https://ant.design">{item.name}</a>}
-                    description={item.email}
-                  />
-                  <div><Button value={item.id} onClick={this.onClick}>평가하기</Button></div>
-                </List.Item>
-              )}
-            >
-              {this.state.loading && this.state.hasMore && (
-                <div className="demo-loading-container">
-                  <Spin />
-                </div>
-              )}
-            </List>
-          </InfiniteScroll>
-        </div>
+        <Option4table
+          columns={this.state.columns}
+          data={this.state.tasks} />
       </div>
     );
   }

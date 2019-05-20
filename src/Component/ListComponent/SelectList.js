@@ -1,6 +1,11 @@
-import { Table,Input, Modal, Button,Tabs,DatePicker } from 'antd';
+import { Table } from 'antd';
 import React, { Component } from 'react';
 import './ScrollList.css';
+import { Input } from 'antd';
+import { Modal, Button } from 'antd';
+import { Tabs } from 'antd';
+import { DatePicker } from 'antd';
+import "./SelectList.css"
 const { RangePicker } = DatePicker;
 const Search = Input.Search;
 const TabPane = Tabs.TabPane;
@@ -28,7 +33,6 @@ class SelectList extends Component {
             columns : [{
               title: '제목',
               dataIndex: 'title',
-            
               key: 'title',
               render: text => <a href="javascript:;">{text}</a>,
             }, {
@@ -54,8 +58,6 @@ class SelectList extends Component {
         }),
       }
      
-
-
       onChange = (value, dateString) => {
         console.log('Selected Time: ', value);
         console.log('Formatted Selected Time: ', dateString);
@@ -103,14 +105,6 @@ class SelectList extends Component {
 
        }   
 
-
-
-
-
-
-
-
-
     init() {
 
      
@@ -131,43 +125,34 @@ class SelectList extends Component {
       this.init();
      } 
   }
-  button(check){
+  button(){
     if(this.state.tasks==null){
-      return  <Button disabled>저장</Button>
+      return  <Button type="primary" disabled>확인</Button>
     }
-    else if(check == 1){
-     return <Button onClick={this.createOnClick}>저장</Button>
-    }else if(check==2){
-     return <Button onClick={this.deleteOnClick}>저장</Button>
+    else{
+     return <Button type="primary" onClick={this.createOnClick}>확인</Button>
     }
   }
     render() {
     
         return (
-
             <div>
-                <div>
-               
-                    <br /><br />
-                    <Search
+                <div>           
+              <Search
                         defaultValue={this.state.taskSearch}
-                        placeholder="input search text"
+                        placeholder="임무 검색"
                         onSearch={value => this.props.searchTask(value)}
                         enterButton
-                    />
-            
-                       
+                    />               
               <Tabs defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="추가" key="1">
-                <Table rowSelection={this.rowSelection} columns={this.state.columns} dataSource={this.state.createArr} pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
-               {this.button(1)}
+                <TabPane tab="추가" key="1" >
+                <Table rowSelection={this.rowSelection} style={{height:"240px"}} columns={this.state.columns} dataSource={this.state.createArr}  pagination={false} scroll={{ y: 240 }} />     
                 </TabPane>
                 <TabPane tab="삭제" key="2">
-                <Table rowSelection={this.rowSelection} columns={this.state.columns} dataSource={this.state.deleteArr} pagination={{ pageSize: 50 }} scroll={{ y: 240 }} />
-                {this.button(2)}
-                </TabPane>
-               
+                <Table rowSelection={this.rowSelection} style={{height:"240px"}} columns={this.state.columns} dataSource={this.state.deleteArr} pagination={false} scroll={{ y: 240 }}/>
+                </TabPane>   
               </Tabs>
+              
 
               <Modal
                 title="기간선택"
@@ -175,19 +160,25 @@ class SelectList extends Component {
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
               >
-              <p>시작날짜와 종료날짜를 설정해 주십시오</p>
+              <div style={{textAlign:"center"}}>
+              <p>시작날짜와 종료날짜를 설정해 주십시오.</p>
                 <RangePicker
                   showTime={{ format: 'HH:mm' }}
                   format="YYYY-MM-DD HH:mm"
                   placeholder={['Start Time', 'End Time']}
                   onChange={this.onChange}
                   onOk={this.onOk}
+                 
                 />
+                </div>
               </Modal>
             
                 </div>
-               
+                <div style={{marginTop:"10px"}}>
+                {this.button()}
+                </div>
             </div>
+            
      )
 }
 }

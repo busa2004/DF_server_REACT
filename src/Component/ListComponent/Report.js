@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import Option4table from './Option4table';
+import Option4table from '../ListComponent/Option4table';
+import {
+    Input
+ } from 'antd';
  import "./Report.css"
  import { getAllReport, getAllTask,ReportConverter,getAllTaskNoSearch } from '../../util/APIUtils';
-import Option4DatePick from './Option4DatePicker';
-import Option4Search from './Option4Search';
-import Option4modal from './Option4modal';
+import Option4DatePick from '../ListComponent/Option4DatePicker';
+import Option4Search from '../ListComponent/Option4Search';
+import Option4Input from '../ListComponent/Option4Input';
+import Option4modal from '../ListComponent/Option4modal';
 import LoadingIndicator from '../../common/LoadingIndicator';
 import ServerError from '../../common/ServerError';
 import NotFound from '../../common/NotFound';
-import { message,Input } from 'antd';
+import { message } from 'antd';
 import Selecter from '../WriteComponent/selecter'
  const InputGroup = Input.Group;
 
@@ -173,10 +177,12 @@ class Report extends Component {
 
 
       componentWillMount() {
+        this.loadUserTask()
 
        if(this.state.route == 'report'){
            this.setState({
             columns:this.props.columns.concat( {
+                align:'center',
                 title: 'action',
                 key: 'id',
                 render: (record,columns) => (

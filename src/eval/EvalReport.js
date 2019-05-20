@@ -147,6 +147,7 @@ class EvalReport extends Component {
     } else if (this.state.route == 'task') {
       this.setState({
         columns: this.props.columns.concat({
+          
           title: '삭제',
           dataIndex: 'id',
           key: 'id',

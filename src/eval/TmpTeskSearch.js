@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Option4table from '../Component/ListComponent/Option4table';
+import Option4table from '../ListComponent/Option4table';
 import { getAllTask, deleteTask, getUserTask } from '../util/APIUtils';
-import Option4DatePick from '../Component/ListComponent/Option4DatePicker';
+import Option4DatePick from '../ListComponent/Option4DatePicker';
 import LoadingIndicator from '../common/LoadingIndicator';
 import ServerError from '../common/ServerError';
 import NotFound from '../common/NotFound';
