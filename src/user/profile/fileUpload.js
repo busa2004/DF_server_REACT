@@ -3,7 +3,7 @@ import {
     Upload, message, Button, Icon,
   } from 'antd';
   
-
+ 
   class Uploader extends Component {
     constructor(props){
       super(props);
