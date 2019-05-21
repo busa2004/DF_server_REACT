@@ -175,8 +175,7 @@ class App extends Component {
 
               <Route path="/login"
                 render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
-               <Route path="/signup"
-                render={(props) => <Signup onLogin={this.handleLogin} {...props} />}></Route>
+              
 
               <div className="center">
                 <div className="main" >

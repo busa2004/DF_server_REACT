@@ -14,7 +14,7 @@ import {
      config = {
     
       name: 'file',
-      action: 'http://218.39.221.79:8080/api/files',
+      action: 'http://218.39.221.101:8080/df/api/files',
       headers: {
         authorization: 'authorization-text',
       },

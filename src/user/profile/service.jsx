@@ -8,7 +8,7 @@ class Service {
   getRestClient() {
     if (!this.serviceInstance) {
       this.serviceInstance = axios.create({
-        baseURL: 'http://218.39.221.79:8080/api',
+        baseURL: 'http://218.39.221.101:8080/df/api',
         headers: {
             'Content-Type': 'application/json'
           },

@@ -177,7 +177,7 @@ class Report extends Component {
 
 
       componentWillMount() {
-        this.loadUserTask()
+      
 
        if(this.state.route == 'report'){
            this.setState({
