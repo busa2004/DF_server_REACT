@@ -11,7 +11,7 @@ const request = (options) => {
 
     const defaults = {headers: headers};
     options = Object.assign({}, defaults, options); //Object.assign 병합하기 (타겟변수,값1,값2)
-    
+     
     return fetch(options.url, options)  // header url method 설정후 fetch
     .then(response =>  //받은값을 json으로 바꾸고
         response.json().then(json => {
