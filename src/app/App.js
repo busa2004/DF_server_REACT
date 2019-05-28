@@ -172,8 +172,8 @@ class App extends Component {
             {sider}
 
             <Switch>
-            <Route path="/signup"
-                render={(props) => <Signup onLogin={this.handleLogin} {...props} />}></Route>
+            {/* <Route path="/signup"
+                render={(props) => <Signup onLogin={this.handleLogin} {...props} />}></Route> */}
             {this.state.currentUser == null?
               <Route path="/login"
                 render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>:
