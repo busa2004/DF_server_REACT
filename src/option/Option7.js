@@ -8,7 +8,7 @@ class Option7 extends Component {
         return (
                 <Card title='업무등록' headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}> 
                 <div className="edit">
-                <TextEdit router={'task'}/>
+                <TextEdit router={'task'} />
                 </div>
                 </Card>
         );
