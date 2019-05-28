@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {API_BASE_URL} from '../../constants/index'
 class Service {
 
   constructor() {
@@ -8,7 +9,7 @@ class Service {
   getRestClient() {
     if (!this.serviceInstance) {
       this.serviceInstance = axios.create({
-        baseURL: 'http://192.168.99.100:8080/df/api',
+        baseURL: API_BASE_URL+'/df/api',
         headers: {
             'Content-Type': 'application/json'
           },

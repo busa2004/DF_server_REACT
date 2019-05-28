@@ -383,7 +383,7 @@ class Service {
     }  
     if (!this.serviceInstance) {
       this.serviceInstance = axios.create({
-        baseURL: 'http://192.168.99.100:8080/df/api',
+        baseURL: API_BASE_URL,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + a

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Upload, message, Button, Icon,
   } from 'antd';
-  
+import {API_BASE_URL} from '../../constants/index'
 
   class Uploader extends Component {
     constructor(props){
@@ -14,7 +14,7 @@ import {
      config = {
     
       name: 'file',
-      action: 'http://192.168.99.100:8080/df/api/report/uploadFile',
+      action: API_BASE_URL+'/report/uploadFile',
       headers: {
         authorization: 'authorization-text',
       },
