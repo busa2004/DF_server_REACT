@@ -85,10 +85,10 @@ class Option4modal extends React.Component {
           <Row type="flex" justify="end">
             <Col span={4} >
 
-                <Button style={{marginRight:"5px"}} type="primary" ghost disabled={this.disabled()} size='large' onClick={id => this.props.progress(this.state.id, 'PROGRESS', this.state.textArea)}>
+                <Button style={{marginRight:"5px"}} type="primary" ghost disabled={this.disabled()} size='large' onClick={id => this.props.progress(this.state.id, 'PROGRESS', this.state.textArea,this.state.title)}>
                   승인
                 </Button>
-                <Button style={{marginRight:"5px"}} type="danger" ghost size='large' onClick={id => this.props.progress(this.state.id, 'HOLD', this.state.textArea)}>
+                <Button style={{marginRight:"5px"}} type="danger" ghost size='large' onClick={id => this.props.progress(this.state.id, 'HOLD', this.state.textArea,this.state.title)}>
                   반려
                 </Button>
 

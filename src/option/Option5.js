@@ -34,7 +34,17 @@ class Option5 extends Component {
                 title: '날짜',
                 dataIndex: 'createdAt',
                 key: 'createdAt',
-                ...this.getColumnSearchProps('createdAt')
+                ...this.getColumnSearchProps('userName'),
+                render: (text, row, index) => {
+                  let date = new Date(text);
+                  return <div>{date.getFullYear()+"-"+
+                          (date.getMonth()+1)+"-"+
+                          date.getDate()}<br/>{
+                          date.getHours()+":"+
+                          date.getMinutes()+":"+
+                          date.getSeconds()
+                           }</div>
+                  }
               }]
         }
       

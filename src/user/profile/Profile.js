@@ -8,6 +8,7 @@ import NotFound from '../../common/NotFound';
 import ServerError from '../../common/ServerError';
 import PasswordChange from './PasswordChange';
 import { FileUploader } from './fileUploader.jsx';
+import SlackConnect from './SlackConnect.js';
 const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
@@ -109,12 +110,13 @@ class Profile extends Component {
                                         </Card>
                                     </Col>
                                     <Col span={12}>
-                                        <Card title="비밀번호 변경">
-                                           <PasswordChange id={this.state.user.id}/>
+                                        <Card title="슬랙 연동">
+                                           <SlackConnect/>
                                         </Card>
                                     </Col>
                                    
                                 </Row>
+                                
                             </div>
 
 

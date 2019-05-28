@@ -14,7 +14,7 @@ import {
      config = {
     
       name: 'file',
-      action: 'http://218.39.221.101:8080/df/api/report/uploadFile',
+      action: 'http://192.168.99.100:8080/df/api/report/uploadFile',
       headers: {
         authorization: 'authorization-text',
       },

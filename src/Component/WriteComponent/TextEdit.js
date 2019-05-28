@@ -16,7 +16,7 @@ import {
     Input, Select,Icon,Upload
 } from 'antd';
 import { html, html2, html3 } from '../../constants/html';
-
+import {send} from '../ListComponent/Message';
 const Option = Select.Option;
 const InputGroup = Input.Group;
 const error = (value) => {
@@ -146,12 +146,17 @@ class TextEdit extends Component {
                 task.userTaskId = this.state.userTaskId;
             }
             this.loadCreateTask(task);
+            send(this.props.currentUser.name+' 이'+
+            this.state.title+'를 작성하였습니다.\n'+'http://localhost:3000/Option4',
+            'xoxp-589802289765-587062052432-637522247233-ecdfb5f0a09821fa899e7556d06c2a0d',
+            '관리자')
             this.setState({
                 content:'',
                 title:'',
                 fileName:null,
                 userTaskId:null
             })
+           
         }
     };
     onChange = (e) => {

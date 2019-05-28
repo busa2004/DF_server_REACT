@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import Option1Calendar from '../Component/CalendarComponent/Calendar';
 import { getUserTask,getUserCalendar } from '../util/APIUtils';
+import { keyChange } from '../Component/ListComponent/Message';
 import LoadingIndicator from '../common/LoadingIndicator';
-import {Card} from 'antd';
+import {Card,Button,Input} from 'antd';
+
+
+
+
+
+
+//send('ssssssssss');
 class Option1 extends Component {
 
     constructor(props) {
@@ -11,12 +19,15 @@ class Option1 extends Component {
             userTask: null,
             isLoading: true,
             cal:[],
+            key:null,
+            date: new Date()
         }
         this.loadUserTask = this.loadUserTask.bind(this);
         this.loadUserCalendar = this.loadUserCalendar.bind(this);
-        
+            
     }
     
+   
     loadUserTask() {
       this.setState({
           isLoading: true
@@ -70,13 +81,23 @@ class Option1 extends Component {
         });        
       }
 
-
+  
     componentDidMount() {
     // this.loadUserTask();
      this.loadUserCalendar();
+    
     }
-    
-    
+    settingKey = (e) =>{
+        keyChange(e.target.value)
+    }
+    settingRoomTitle = (e) =>{
+        this.setState({
+            roomTitle: e.target.value
+        });
+       
+        console.log(e.target.value)
+    }
+  
     render () {
         const cal = this.state.cal;
         if(this.state.isLoading) {
@@ -85,8 +106,8 @@ class Option1 extends Component {
           else{  
           return (
             <div>
-                <div>dakdasodkasdkasldkalsd</div>
-                <Card headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}
+                 
+                 <Card headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}
                 bodyStyle={{backgroundColor:"16448250"}}  title='업무리스트'>
                 <Option1Calendar calendar = {cal} />   
                 </Card>            

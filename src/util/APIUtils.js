@@ -23,6 +23,8 @@ const request = (options) => {
     );
 };
 
+
+
 export function getAllPolls(page, size) {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
@@ -63,7 +65,13 @@ export function login(loginRequest) {
         body: JSON.stringify(loginRequest)
     });
 }
-
+export function createSlack(value){
+    return request({
+        url : API_BASE_URL+"/user/slack/update",
+        method:'POST',
+        body:JSON.stringify(value)
+    })
+}
 export function signup(signupRequest) {
     return request({
         url: API_BASE_URL + "/auth/signup",
@@ -106,6 +114,12 @@ export function getCurrentUser() {
 export function getOtherUserProfile(userId) {
     return request({
         url: API_BASE_URL + "/user/profile?userId=" + userId,
+        method: 'GET'
+    });
+}
+export function sendByReport(reportId) {
+    return request({
+        url: API_BASE_URL + "/report/slack?reportId=" + reportId,
         method: 'GET'
     });
 }
@@ -369,7 +383,7 @@ class Service {
     }  
     if (!this.serviceInstance) {
       this.serviceInstance = axios.create({
-        baseURL: 'http://218.39.221.101:8080/df/api',
+        baseURL: 'http://192.168.99.100:8080/df/api',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + a

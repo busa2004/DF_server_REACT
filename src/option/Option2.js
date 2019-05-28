@@ -8,7 +8,9 @@ class Option2 extends Component {
                 <Card headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}
                  title='보고서등록'>
                 <div className='edit'>
-                <TextEdit router={'report'}/>
+
+                {console.log(this.props.currentUser)}
+                <TextEdit currentUser={this.props.currentUser} router={'report'} />
                 </div>
                 </Card>
         );

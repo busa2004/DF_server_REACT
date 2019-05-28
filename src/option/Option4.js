@@ -34,7 +34,18 @@ class Option4 extends Component {
                 title: '날짜',
                 dataIndex: 'createdAt',
                 key: 'createdAt',
-                ...this.getColumnSearchProps('createdAt')
+                ...this.getColumnSearchProps('userName'),
+                render: (text, row, index) => {
+                let date = new Date(text);
+                return <div>{date.getFullYear()+"-"+
+                        (date.getMonth()+1)+"-"+
+                        date.getDate()}<br/>{
+                        date.getHours()+":"+
+                        date.getMinutes()+":"+
+                        date.getSeconds()
+                         }</div>
+                }
+                
               }]
         }
       
@@ -98,14 +109,16 @@ class Option4 extends Component {
         this.setState({ searchText: '' });
       }
 
-
+      componentWillMount(){
+        console.log(this.props.currentUser)
+      }
     
     render() {
        
         return (
             <div>
               <Card title='업무보고현황' headStyle={{backgroundColor:"#00B1B6",color:"#FBFBFB",fontWeight:"bold"}}>
-                <Report title={'업무보고현황'} buttonTitle={'결제'} status={'WAIT'} route={'report'} columns={this.state.columns}/>
+                <Report  currentUser={this.props.currentUser} title={'업무보고현황'} buttonTitle={'결제'} status={'WAIT'} route={'report'} columns={this.state.columns}/>
                 </Card>
             </div>
         );

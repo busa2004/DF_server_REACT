@@ -13,7 +13,8 @@ import LoadingIndicator from '../../common/LoadingIndicator';
 import ServerError from '../../common/ServerError';
 import NotFound from '../../common/NotFound';
 import { message } from 'antd';
-import Selecter from '../WriteComponent/selecter'
+import Selecter from '../WriteComponent/selecter';
+import {sendUser} from './Message';
  const InputGroup = Input.Group;
 
 class Report extends Component {
@@ -27,7 +28,7 @@ class Report extends Component {
         title:this.props.title,
         route:this.props.route,
         taskId:null,
-       
+        user : this.props.currentUser,
         datas:null,
         ok:null
         }
@@ -142,11 +143,15 @@ class Report extends Component {
       }
 
 
-      progress  = (idData,stateData,textArea) => {
+      progress  = (idData,stateData,textArea,reportTitle) => {
         let state = {state:stateData, id:idData,description:textArea};
         this.ModalLoad(state);
-       
-       
+        console.log(state)
+        if(stateData=='PROGRESS'){
+        sendUser(reportTitle+'가 승인되었습니다.\n http://localhost:3000/Option3',idData);
+        }else if(stateData == 'HOLD'){
+          sendUser(reportTitle+'가 반려되었습니다.\n http://localhost:3000/Option3',idData);
+        }
       }
     
    
@@ -177,7 +182,7 @@ class Report extends Component {
 
 
       componentWillMount() {
-      
+      console.log(this.props.currentUser)
 
        if(this.state.route == 'report'){
            this.setState({
